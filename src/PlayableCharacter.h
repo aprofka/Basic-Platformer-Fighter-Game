@@ -16,6 +16,7 @@ public:
         m_mSpritePhases["Jumping"] = 3;
         m_mSpritePhases["Falling"] = 3;
         m_mSpritePhases["BasicAttack"] = 5;
+        m_mSpritePhases["Defence"] = 1;
     }
 
     void virtKeyDown(int iKeyPressed) override;

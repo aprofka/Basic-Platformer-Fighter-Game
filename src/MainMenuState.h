@@ -5,5 +5,8 @@ class MainMenuState :
 {
 public:
     MainMenuState(PsyapEngine* newEngine);
+    void stateMainLoopDoBeforeUpdate() override;
+    void stateAllBackgroundBuffer() override;
+    int m_iOffset;
 };
 

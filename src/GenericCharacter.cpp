@@ -58,7 +58,8 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 	}
 	else if (m_iCorrectionX == 0 && m_iCorrectionY == 0 
 		&& m_iSpriteTextureState != TextureState::IDLE
-		&& m_iSpriteTextureState != TextureState::ATTACKING) { //Resets to idle animation after it lands from a jump
+		&& m_iSpriteTextureState != TextureState::ATTACKING
+		&& m_iSpriteTextureState != TextureState::DEFENCE) { //Resets to idle animation after it lands from a jump
 		std::cout << "FELL IDLE" << std::endl;
 		m_iSpriteTextureState = TextureState::IDLE;
 	}
@@ -67,7 +68,7 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 
 	//Texture Animation
 	int delta = getEngine()->getRawTime() - m_iLastSpriteChangeTime;
-	if (delta > 100) {
+	if (delta > 75) {
 		switch (m_iSpriteTextureState) 
 		{
 		case TextureState::IDLE:
@@ -83,7 +84,10 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 			changeTexture(4,1, "Falling", true);
 			break;
 		case TextureState::ATTACKING:
-			changeTexture(1, 0, "BasicAttack", false);
+			changeTexture(1,0, "BasicAttack", false);
+			break;
+		case TextureState::DEFENCE:
+			changeTexture(10,1, "Defence", true);
 			break;
 		}
 	}
@@ -110,7 +114,6 @@ void GenericCharacter::changeTexture(int iTextureOffSetY,int iTextureResetX ,std
 		m_iLastSpriteChangeTime = getEngine()->getRawTime();
 	}
 	else {
-		//m_iTextureOffSetX += m_iDrawWidth;
 		m_iSpriteFrameCount++;
 		m_iLastSpriteChangeTime = getEngine()->getRawTime();
 	}

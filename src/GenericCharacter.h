@@ -13,6 +13,7 @@ enum class TextureState {
 	JUMPING = 3,
 	FALLING = 4,
 	ATTACKING = 5,
+	DEFENCE = 6,
 };
 
 class GenericCharacter : public DisplayableObject

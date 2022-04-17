@@ -19,5 +19,7 @@ public:
 	GenericCharacter* m_oCharacter;
 
 	virtual void GetNewCharacter();
+	virtual void stateMainLoopDoBeforeUpdate();
+	virtual void stateAllBackgroundBuffer();
 };
 

@@ -7,22 +7,11 @@
 #include "MainMenuState.h"
 
 
-
-
-void PsyapEngine::SetState(BaseState* state) {
-	std::cout << "Context: Transition to " << typeid(*state).name() << ".\n";
-	if (this->m_state != nullptr)
-		delete this->m_state;
-	this->m_state = state;
-	this->m_state->setEngine(this);
-}
-
-
 void PsyapEngine::virtSetupBackgroundBuffer() {
 	int iScreenCenterX = (getWindowWidth() / 2);
 	int iScreenCenterY = (getWindowHeight() / 2);
 
-	fillBackground(0x222255); //Sets the colour of the background
+	fillBackground(0x000000); //Sets the colour of the background
 	
 	/*
 	this -> lockForegroundForDrawing(); //To prevent conflicts/errors of 2 objects being drawn to the foreground at the same time
@@ -30,10 +19,20 @@ void PsyapEngine::virtSetupBackgroundBuffer() {
 	this -> unlockForegroundForDrawing();
 	*/
 
-	this -> m_state = new RunningState(this);
+	//this -> m_state = new RunningState(this);
+	this->m_state = new MainMenuState(this);
 
 }
 
+void PsyapEngine::virtMainLoopDoBeforeUpdate() {
+	m_state->stateMainLoopDoBeforeUpdate();
+}
+
+void PsyapEngine::copyAllBackgroundBuffer() {
+	m_state->stateAllBackgroundBuffer();
+	//BaseEngine::copyAllBackgroundBuffer();
+
+}
 
 int PsyapEngine::virtInitialiseObjects()
 {
@@ -42,16 +41,16 @@ int PsyapEngine::virtInitialiseObjects()
 	drawableObjectsChanged();
 	destroyOldObjects(true);
 	createObjectArray(5);
-	m_rectObj1 = new PsyapDisplayableObject(this);
+	//m_rectObj1 = new PsyapDisplayableObject(this);
 	m_state -> GetNewCharacter();
-	storeObjectInArray(0, m_rectObj1);
+	//storeObjectInArray(0, m_rectObj1);
 
 	setAllObjectsVisible(true);
 	return 0;
 }
 
 void PsyapEngine::virtMouseMoved(int iX, int iY) {
-	m_rectObj1->setPosition(iX, iY); //Sets the object position to be the same the the mouse one
+	//m_rectObj1->setPosition(iX, iY); //Sets the object position to be the same the the mouse one
 }
 
 void PsyapEngine::virtKeyDown(int iKeyCode)

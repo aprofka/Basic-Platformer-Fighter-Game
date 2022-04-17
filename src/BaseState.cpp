@@ -21,3 +21,11 @@ BaseState::BaseState(PsyapEngine* newEngine) {
 void BaseState::GetNewCharacter()
 {
 }
+
+void BaseState::stateMainLoopDoBeforeUpdate()
+{
+}
+
+void BaseState::stateAllBackgroundBuffer()
+{
+}

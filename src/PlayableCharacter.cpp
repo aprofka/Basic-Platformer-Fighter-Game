@@ -29,6 +29,11 @@ void PlayableCharacter::virtKeyDown(int iKeyPressed) {
 		m_iCorrectionX = -10;
 		m_bFlipped = true;
 	}
+	else if (iKeyPressed == SDLK_d) {
+		std::cout << "Defence " << std::endl;
+		m_iCorrectionX = 0;
+		m_iSpriteTextureState = TextureState::DEFENCE;
+	}
 }
 
 

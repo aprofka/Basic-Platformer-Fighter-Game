@@ -10,6 +10,8 @@ class PsyapEngine :
 public:
     void SetState(BaseState* state);
     void virtSetupBackgroundBuffer();
+    void virtMainLoopDoBeforeUpdate() override;
+    void copyAllBackgroundBuffer() override;
     int virtInitialiseObjects();
     void virtMouseMoved(int iX, int iY);
     void virtKeyDown(int iKeyCode);
