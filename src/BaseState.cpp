@@ -10,15 +10,15 @@
 
 BaseState::BaseState(void) {
 	m_currentEngine = nullptr;
-	m_oCharacter = nullptr;
+	m_oMovObject = nullptr;
 }
 
 BaseState::BaseState(PsyapEngine* newEngine) {
 	this -> m_currentEngine = newEngine;
-	this -> m_oCharacter = nullptr;
+	this -> m_oMovObject = nullptr;
 }
 
-void BaseState::GetNewCharacter()
+void BaseState::GetNewMovableObject()
 {
 }
 

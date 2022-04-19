@@ -14,7 +14,7 @@ RunningState::RunningState(void) : BaseState() {
 RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	std::cout << "State Main Menu - Created\n";
 	this->m_currentEngine = newEngine;
-	this->m_oCharacter = nullptr;
+	this->m_oMovObject = nullptr;
 
 	//Load Image
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
@@ -45,9 +45,9 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 }
 
 
-void RunningState::GetNewCharacter(void){
-	m_oCharacter = new PlayableCharacter(m_currentEngine);
-	m_currentEngine->appendObjectToArray(m_oCharacter);
+void RunningState::GetNewMovableObject(void){
+	m_oMovObject = new PlayableCharacter(m_currentEngine);
+	m_currentEngine->appendObjectToArray(m_oMovObject);
 }
 
 

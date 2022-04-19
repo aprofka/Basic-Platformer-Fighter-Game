@@ -99,6 +99,7 @@
     <ClInclude Include="GenericCharacter.h" />
     <ClInclude Include="ImageMappingDemo.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MenuOption.h" />
     <ClInclude Include="PlatformTileManager.h" />
     <ClInclude Include="PlayableCharacter.h" />
     <ClInclude Include="PsyapDisplayableObject.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="DisplayableObject.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="PlatformTileManager.cpp" />
     <ClCompile Include="PlayableCharacter.cpp" />
     <ClCompile Include="PsyapDisplayableObject.cpp" />

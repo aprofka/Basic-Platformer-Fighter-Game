@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Coursework\Util">
       <UniqueIdentifier>{a3fb4cd7-0f6d-4325-8216-cc7f07e5725f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Coursework\MenuObjects">
+      <UniqueIdentifier>{0ece1d3b-e405-4e36-a7b2-fb60d2668709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Coursework\MenuObjects">
+      <UniqueIdentifier>{6caad197-89ac-4394-8c22-43de24705ac7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h">
@@ -180,6 +186,9 @@
     <ClInclude Include="PsyapImagePixelMapping.h">
       <Filter>Header Files\Coursework\Util</Filter>
     </ClInclude>
+    <ClInclude Include="MenuOption.h">
+      <Filter>Header Files\Coursework\MenuObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -259,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="PlatformTileManager.cpp">
       <Filter>Source Files\Coursework\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuOption.cpp">
+      <Filter>Source Files\Coursework\MenuObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

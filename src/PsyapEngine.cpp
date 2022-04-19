@@ -42,7 +42,7 @@ int PsyapEngine::virtInitialiseObjects()
 	destroyOldObjects(true);
 	createObjectArray(5);
 	//m_rectObj1 = new PsyapDisplayableObject(this);
-	m_state -> GetNewCharacter();
+	m_state -> GetNewMovableObject();
 	//storeObjectInArray(0, m_rectObj1);
 
 	setAllObjectsVisible(true);
