@@ -42,7 +42,7 @@ int PsyapEngine::virtInitialiseObjects()
 	destroyOldObjects(true);
 	createObjectArray(5);
 	//m_rectObj1 = new PsyapDisplayableObject(this);
-	m_state -> GetNewMovableObject();
+	m_state -> getNewMovableObject();
 	//storeObjectInArray(0, m_rectObj1);
 
 	setAllObjectsVisible(true);
@@ -56,4 +56,6 @@ void PsyapEngine::virtMouseMoved(int iX, int iY) {
 void PsyapEngine::virtKeyDown(int iKeyCode)
 {
 	this -> notifyObjectsAboutKeys(true);
+	m_state->keyControl(iKeyCode);
 }
+

@@ -9,7 +9,8 @@ public:
     MainMenuState(PsyapEngine* newEngine);
     void stateMainLoopDoBeforeUpdate() override;
     void stateAllBackgroundBuffer() override;
-    void GetNewMovableObject(void) override;
+    void getNewMovableObject(void) override;
+    void keyControl(int iKeyPressed) override;
     int m_iOffset;
     std::vector<MenuOption*> m_arrMenuOptions;
 };

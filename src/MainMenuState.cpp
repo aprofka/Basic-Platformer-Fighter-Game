@@ -1,6 +1,7 @@
 #include "header.h"
 #include "MainMenuState.h"
 #include "PsyapEngine.h"
+#include "RunningState.h"
 
 
 MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
@@ -37,19 +38,53 @@ void MainMenuState::stateAllBackgroundBuffer()
 		m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
 }
 
-void MainMenuState::GetNewMovableObject(void) {
+void MainMenuState::getNewMovableObject(void) {
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -125, "Play"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -50, "Leaderboard"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, 25, "Game Art"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, 100, "Exit"));
 
 	m_arrMenuOptions[0]->m_iSelected = true;
+	for (auto& i : m_arrMenuOptions) {
+		i->m_arrMenuOptions = m_arrMenuOptions;
+	}
 
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[0]);
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[1]);
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[2]);
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[3]);
 
+}
+
+//Menu selection button
+void MainMenuState::keyControl(int iKeyPressed) {
+	if (iKeyPressed == SDLK_UP || iKeyPressed == SDLK_DOWN || iKeyPressed == 13) {
+		for (size_t i = 0; i < m_arrMenuOptions.size(); i++) {
+			if (m_arrMenuOptions[i] -> m_iSelected) {
+				
+				if (iKeyPressed == SDLK_UP && i - 1 != -1) {
+					m_arrMenuOptions[i] -> m_iSelected = false;
+					m_arrMenuOptions[i - 1]->m_iSelected = true;
+					break;
+				}
+				else if (iKeyPressed == SDLK_DOWN && i + 1 != m_arrMenuOptions.size()) {
+					m_arrMenuOptions[i] -> m_iSelected = false;
+					m_arrMenuOptions[i + 1]->m_iSelected = true;
+					break;
+				}
+				else if (iKeyPressed == 13) { // 13 is Enter
+					std::cout << "Change State to Play " << std::endl;
+					if (strcmp(m_arrMenuOptions[i]->m_sText, "Play") == 0) {
+						std::cout << "22222 " << std::endl;
+						m_currentEngine->destroyOldObjects(true);
+						m_currentEngine->m_state = new RunningState(m_currentEngine);
+						break;
+					}
+				}
+			}
+		}
+	}
+	
 }
 
 

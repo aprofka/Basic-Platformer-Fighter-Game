@@ -13,5 +13,6 @@ class RunningState :
 public:
     RunningState();
     RunningState(PsyapEngine* newEngine);
-    void GetNewMovableObject(void) override;
+    void stateAllBackgroundBuffer() override;
+    void getNewMovableObject(void) override;
 };

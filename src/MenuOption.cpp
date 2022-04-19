@@ -22,23 +22,18 @@ void MenuOption::virtDraw()
 	}
 }
 
-void MenuOption::setPosition(int iX, int iY)
-{
-	m_iCurrentScreenX = iX;
-	m_iCurrentScreenY = iY;
-}
-
-void MenuOption::setColour(int c)
-{
-	m_iColour = c;
-}
-
-int MenuOption::getColour()
-{
-	return m_iColour;
-}
-
 void MenuOption::virtDoUpdate(int iCurrentTime)
 {
 	this->redrawDisplay();
+}
+
+void MenuOption::virtKeyDown(int iKeyPressed) {
+	
+
+	
+
+
+
+
+	
 }

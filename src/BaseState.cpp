@@ -18,7 +18,7 @@ BaseState::BaseState(PsyapEngine* newEngine) {
 	this -> m_oMovObject = nullptr;
 }
 
-void BaseState::GetNewMovableObject()
+void BaseState::getNewMovableObject()
 {
 }
 
@@ -27,5 +27,9 @@ void BaseState::stateMainLoopDoBeforeUpdate()
 }
 
 void BaseState::stateAllBackgroundBuffer()
+{
+}
+
+void BaseState::keyControl(int iKeyPressed)
 {
 }

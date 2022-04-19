@@ -4,7 +4,6 @@
 #include "header.h"
 #include "RunningState.h"
 
-
 #endif
 
 RunningState::RunningState(void) : BaseState() {
@@ -12,19 +11,22 @@ RunningState::RunningState(void) : BaseState() {
 }
 
 RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
-	std::cout << "State Main Menu - Created\n";
+	std::cout << "State Running - Created\n";
+	
+
 	this->m_currentEngine = newEngine;
 	this->m_oMovObject = nullptr;
 
 	//Load Image
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
-
+	m_currentEngine->lockForegroundForDrawing();
+	m_currentEngine->lockBackgroundForDrawing();
 	//Draw imagine
 	backgroundLayer.renderImage(m_currentEngine->getBackgroundSurface(), 0, 0,
 		0, 0, backgroundLayer.getWidth(), backgroundLayer.getHeight());
 
 	PlatformTileManager m_TileManager;
-
+	
 	//Tiles initilization
 	for (int x = 0; x < 13; x++)
 		for (int y = 0; y < 2; y++)
@@ -42,12 +44,22 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	//of the screen.
 	m_TileManager.setTopLeftPositionOnScreen(0, 700);
 	m_TileManager.drawAllTiles(m_currentEngine, m_currentEngine -> getBackgroundSurface());
+
+	getNewMovableObject();
+	m_currentEngine->unlockBackgroundForDrawing();
+	m_currentEngine->unlockForegroundForDrawing();
+}
+
+void RunningState::stateAllBackgroundBuffer()
+{
+	m_currentEngine->BaseEngine::copyAllBackgroundBuffer();
 }
 
 
-void RunningState::GetNewMovableObject(void){
+void RunningState::getNewMovableObject(void){
 	m_oMovObject = new PlayableCharacter(m_currentEngine);
 	m_currentEngine->appendObjectToArray(m_oMovObject);
 }
+
 
 

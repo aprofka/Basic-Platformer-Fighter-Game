@@ -18,8 +18,9 @@ public:
 
 	GenericCharacter* m_oMovObject;
 
-	virtual void GetNewMovableObject();
+	virtual void getNewMovableObject();
 	virtual void stateMainLoopDoBeforeUpdate();
 	virtual void stateAllBackgroundBuffer();
+	virtual void keyControl(int iKeyPressed);
 };
 
