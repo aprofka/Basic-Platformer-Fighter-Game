@@ -9,8 +9,8 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 	this->m_currentEngine = newEngine;
 
 	//Load Image
-	//SimpleImage backgroundLayer = ImageManager::loadImage("resources/MainMenuState/MainMenuBackground.jpg", true);
-	SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
+	SimpleImage backgroundLayer = ImageManager::loadImage("resources/MainMenuState/MainMenuBackground.jpg", true);
+	//SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
 
 	//Draw imagine
 	backgroundLayer.renderImage(m_currentEngine->getBackgroundSurface(), 0, 0,
@@ -28,7 +28,7 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 
 void MainMenuState::stateMainLoopDoBeforeUpdate()
 {
-	m_iOffset = (m_iOffset + 1) % m_currentEngine->getWindowHeight();
+	m_iOffset += 1;
 	m_currentEngine->redrawDisplay();
 }
 
@@ -38,9 +38,10 @@ void MainMenuState::stateAllBackgroundBuffer()
 	//m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() - m_iOffset, m_currentEngine->getWindowWidth(), 
 	//	m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
 
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0 + m_iOffset, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, -m_iOffset);
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() + m_iOffset, m_currentEngine->getWindowWidth(),
-		m_iOffset, 0, 0);
+	//std::cout << m_iOffset << std::endl;
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, -m_iOffset);
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(),
+		m_currentEngine->getWindowHeight(), 0, m_currentEngine->getWindowHeight() - m_iOffset);
 }
 
 void MainMenuState::getNewMovableObject(void) {

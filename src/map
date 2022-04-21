@@ -1,6 +1,6 @@
  CourseworkBase2020
 
- Timestamp is 6260a183 (Thu Apr 21 01:12:51 2022)
+ Timestamp is 6261bbd1 (Thu Apr 21 21:17:21 2022)
 
  Preferred load address is 00400000
 
@@ -995,9 +995,9 @@
  0001:0001c350       ?getSize@Font@@QAEHXZ      0041d350 f i FontManager.obj
  0001:0001c370       ??0MainMenuState@@QAE@PAVPsyapEngine@@@Z 0041d370 f   MainMenuState.obj
  0001:0001c480       ?stateMainLoopDoBeforeUpdate@MainMenuState@@UAEXXZ 0041d480 f   MainMenuState.obj
- 0001:0001c4c0       ?stateAllBackgroundBuffer@MainMenuState@@UAEXXZ 0041d4c0 f   MainMenuState.obj
- 0001:0001c560       ?getNewMovableObject@MainMenuState@@UAEXXZ 0041d560 f   MainMenuState.obj
- 0001:0001c7e0       ?keyControl@MainMenuState@@UAEXH@Z 0041d7e0 f   MainMenuState.obj
+ 0001:0001c4b0       ?stateAllBackgroundBuffer@MainMenuState@@UAEXXZ 0041d4b0 f   MainMenuState.obj
+ 0001:0001c550       ?getNewMovableObject@MainMenuState@@UAEXXZ 0041d550 f   MainMenuState.obj
+ 0001:0001c7d0       ?keyControl@MainMenuState@@UAEXH@Z 0041d7d0 f   MainMenuState.obj
  0001:0001cb90       ??$?0$$V@?$_Compressed_pair@V?$allocator@PAVMenuOption@@@std@@V?$_Vector_val@U?$_Simple_types@PAVMenuOption@@@std@@@2@$00@std@@QAE@U_Zero_then_variadic_args_t@1@@Z 0041db90 f i MainMenuState.obj
  0001:0001cbc0       ??$?0PAVMenuOption@@@?$allocator@U_Container_proxy@std@@@std@@QAE@ABV?$allocator@PAVMenuOption@@@1@@Z 0041dbc0 f i MainMenuState.obj
  0001:0001cbe0       ??$_Adl_verify_range@PAPAVMenuOption@@PAPAV1@@std@@YAXABQAPAVMenuOption@@0@Z 0041dbe0 f i MainMenuState.obj
