@@ -9,6 +9,7 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 	this->m_currentEngine = newEngine;
 
 	//Load Image
+	//SimpleImage backgroundLayer = ImageManager::loadImage("resources/MainMenuState/MainMenuBackground.jpg", true);
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
 
 	//Draw imagine
@@ -33,9 +34,13 @@ void MainMenuState::stateMainLoopDoBeforeUpdate()
 
 void MainMenuState::stateAllBackgroundBuffer()
 {
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, m_iOffset);
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() - m_iOffset, m_currentEngine->getWindowWidth(), 
-		m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
+	//m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, m_iOffset);
+	//m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() - m_iOffset, m_currentEngine->getWindowWidth(), 
+	//	m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
+
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0 + m_iOffset, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, -m_iOffset);
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() + m_iOffset, m_currentEngine->getWindowWidth(),
+		m_iOffset, 0, 0);
 }
 
 void MainMenuState::getNewMovableObject(void) {
@@ -73,13 +78,20 @@ void MainMenuState::keyControl(int iKeyPressed) {
 					break;
 				}
 				else if (iKeyPressed == 13) { // 13 is Enter
-					std::cout << "Change State to Play " << std::endl;
+					//std::cout << "Change State to Play " << std::endl;
 					if (strcmp(m_arrMenuOptions[i]->m_sText, "Play") == 0) {
-						std::cout << "22222 " << std::endl;
 						m_currentEngine->destroyOldObjects(true);
 						m_currentEngine->m_state = new RunningState(m_currentEngine);
 						break;
 					}
+					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Exit") == 0) {
+						m_currentEngine->setExitWithCode(0);
+						break;
+					}
+
+
+
+					
 				}
 			}
 		}
