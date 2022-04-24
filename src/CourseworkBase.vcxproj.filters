@@ -189,6 +189,9 @@
     <ClInclude Include="MenuOption.h">
       <Filter>Header Files\Coursework\MenuObjects</Filter>
     </ClInclude>
+    <ClInclude Include="ArtState.h">
+      <Filter>Header Files\Coursework\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="MenuOption.cpp">
       <Filter>Source Files\Coursework\MenuObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ArtState.cpp">
+      <Filter>Source Files\Coursework\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

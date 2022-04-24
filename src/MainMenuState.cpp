@@ -1,5 +1,6 @@
 #include "header.h"
 #include "MainMenuState.h"
+#include "ArtState.h"
 #include "PsyapEngine.h"
 #include "RunningState.h"
 
@@ -83,16 +84,15 @@ void MainMenuState::keyControl(int iKeyPressed) {
 					if (strcmp(m_arrMenuOptions[i]->m_sText, "Play") == 0) {
 						m_currentEngine->destroyOldObjects(true);
 						m_currentEngine->m_state = new RunningState(m_currentEngine);
-						break;
+					}
+					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Game Art") == 0) {
+						m_currentEngine->destroyOldObjects(true);
+						m_currentEngine->m_state = new ArtState(m_currentEngine);
 					}
 					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Exit") == 0) {
 						m_currentEngine->setExitWithCode(0);
-						break;
 					}
-
-
-
-					
+					break;			
 				}
 			}
 		}
