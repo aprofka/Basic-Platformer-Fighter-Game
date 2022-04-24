@@ -29,7 +29,7 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 
 void MainMenuState::stateMainLoopDoBeforeUpdate()
 {
-	m_iOffset += 1;
+	m_iOffset = (m_iOffset + 1) % m_currentEngine->getWindowHeight();
 	m_currentEngine->redrawDisplay();
 }
 
