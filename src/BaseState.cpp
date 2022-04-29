@@ -33,3 +33,7 @@ void BaseState::stateAllBackgroundBuffer()
 void BaseState::keyControl(int iKeyPressed)
 {
 }
+
+void BaseState::mouseWheel(int x, int y, int which, int timestamp)
+{
+}

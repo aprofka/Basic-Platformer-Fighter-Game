@@ -22,5 +22,6 @@ public:
 	virtual void stateMainLoopDoBeforeUpdate();
 	virtual void stateAllBackgroundBuffer();
 	virtual void keyControl(int iKeyPressed);
+	virtual void mouseWheel(int x, int y, int which, int timestamp);
 };
 

@@ -7,8 +7,6 @@
 ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterScaling(0, 0), m_filterTranslation(0, 0, &m_filterScaling) {
 	std::cout << "State Art Menu - Created\n";
 
-
-
 	this->m_currentEngine = newEngine;
 
 	//Load Image
@@ -26,7 +24,8 @@ ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterScaling(0, 0),
 	m_iOffset = 0;
 
 	//m_currentEngine->lockForegroundForDrawing(); //To prevent conflicts/errors of 2 objects being drawn to the foreground at the same time
-	m_currentEngine -> getBackgroundSurface()->setDrawPointsFilter(&m_filterTranslation);
+
+	//m_currentEngine -> getBackgroundSurface()->setDrawPointsFilter(&m_filterTranslation);
 	m_currentEngine -> getForegroundSurface()->setDrawPointsFilter(&m_filterTranslation);
 
 	m_currentEngine->lockForegroundForDrawing();
@@ -62,9 +61,6 @@ void ArtState::getNewMovableObject(void) {
 void ArtState::keyControl(int iKeyPressed) {
 	switch (iKeyPressed)
 	{
-	case SDLK_ESCAPE: // End program when escape is pressed
-		m_currentEngine->setExitWithCode(0);
-		break;
 	case SDLK_LEFT:
 		m_filterTranslation.changeOffset(10, 0);
 		m_currentEngine->redrawDisplay();
@@ -81,8 +77,16 @@ void ArtState::keyControl(int iKeyPressed) {
 		m_filterTranslation.changeOffset(0, -10);
 		m_currentEngine->redrawDisplay();
 		break;
-	case SDLK_SPACE: // Space moves the top left back to the zero coordinates - to be on initial location
-		m_filterTranslation.setOffset(0, 0);
-		m_currentEngine->redrawDisplay();
 	}
+}
+
+// Mouse wheel zooms in or out depending on whether the y scroll was positive or negative
+void ArtState::mouseWheel(int x, int y, int which, int timestamp)
+{
+	if (y < 0)
+		m_filterScaling.compress();
+	else if (y > 0)
+		m_filterScaling.stretch();
+
+	m_currentEngine->redrawDisplay();
 }

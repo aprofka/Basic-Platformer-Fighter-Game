@@ -192,6 +192,9 @@
     <ClInclude Include="ArtState.h">
       <Filter>Header Files\Coursework\States</Filter>
     </ClInclude>
+    <ClInclude Include="PsyapFilterPointClasses.h">
+      <Filter>Header Files\Coursework\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">

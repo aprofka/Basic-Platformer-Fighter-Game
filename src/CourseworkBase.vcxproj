@@ -105,6 +105,7 @@
     <ClInclude Include="PlayableCharacter.h" />
     <ClInclude Include="PsyapDisplayableObject.h" />
     <ClInclude Include="PsyapEngine.h" />
+    <ClInclude Include="PsyapFilterPointClasses.h" />
     <ClInclude Include="PsyapImagePixelMapping.h" />
     <ClInclude Include="PsyapMovementPosition.h" />
     <ClInclude Include="RunningState.h" />

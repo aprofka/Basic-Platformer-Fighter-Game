@@ -49,13 +49,18 @@ int PsyapEngine::virtInitialiseObjects()
 	return 0;
 }
 
-void PsyapEngine::virtMouseMoved(int iX, int iY) {
+//void PsyapEngine::virtMouseMoved(int iX, int iY) {
 	//m_rectObj1->setPosition(iX, iY); //Sets the object position to be the same the the mouse one
-}
+//}
 
 void PsyapEngine::virtKeyDown(int iKeyCode)
 {
 	this -> notifyObjectsAboutKeys(true);
 	m_state->keyControl(iKeyCode);
+}
+
+void PsyapEngine::virtMouseWheel(int x, int y, int which, int timestamp)
+{
+	m_state->mouseWheel(x,y,which,timestamp);
 }
 
