@@ -17,10 +17,11 @@ public:
     void keyControl(int iKeyPressed);
     void mouseWheel(int x, int y, int which, int timestamp) override;
     int m_iOffset;
+    int m_iScrollingSpeed = 20;
     std::vector<DisplayableObject*> m_arrForegroundObjects;
 
-    PsyapFilterPointsScaling m_filterScaling;
-    PsyapFilterPointsTranslation m_filterTranslation;
+    PsyapFilterPointsMain m_filterMain;
+    //PsyapFilterPointsTranslation m_filterTranslation;
     SimpleImage rickRoll;
 };
 

@@ -3,79 +3,63 @@
 #include "DrawingSurface.h"
 
 // Filter to apply a scaling to the points
-class PsyapFilterPointsScaling : public FilterPoints
+class PsyapFilterPointsMain : public FilterPoints
 {
 public:
-	PsyapFilterPointsScaling(int xStretch, int xCompress, int yStretch, int yCompress)
-		: xStretch(xStretch), yStretch(yStretch), xCompress(xCompress), yCompress(yCompress)
-	{
-
-		if (xStretch < 1) xStretch = 1;
-		if (yStretch < 1) yStretch = 1;
-		if (xCompress < 1) xCompress = 1;
-		if (xCompress < 1) xCompress = 1;
-		if (xStretch > 1) xCompress = 1;
-		if (yStretch > 1) xCompress = 1;
-	}
-
-	PsyapFilterPointsScaling(int xFactor, int yFactor, FilterPoints* pNextFilter = nullptr)
-		: xStretch(1), yStretch(1), xCompress(1), yCompress(1)
+	PsyapFilterPointsMain()
+		: m_iStretch(1), m_iCompress(1), xModifier(0), yModifier(0)
 	{
 	}
 
 	bool filter(DrawingSurface* surface, int& xVirtual, int& yVirtual, unsigned int& uiColour) override
 	{
-		if (xStretch > 1) // Stretch it!
+		if (m_iCompress > 1) {
+			xVirtual /= m_iCompress;
+			yVirtual /= m_iCompress;
+			if (xVirtual + xModifier < surface->getVirtualMaxX() && yVirtual + yModifier < surface->getVirtualMaxY()
+				&& xVirtual + xModifier > -1 && yVirtual + yModifier > -1) {
+					surface->rawSetPixel(xVirtual + xModifier, yVirtual + yModifier, uiColour);
+			}
+		}
+		else if (m_iStretch > 1) // Stretch it!
 		{
-			xVirtual *= xStretch;
-			yVirtual *= yStretch;
-			for (int i = 0; i < xStretch; i++) {
-				for (int y = 0; y < yStretch; y++)
+			xVirtual *= m_iStretch;
+			yVirtual *= m_iStretch;
+			for (int i = 0; i < m_iStretch; i++) {
+				for (int y = 0; y < m_iStretch; y++)
 				{
-					if (xVirtual + i < surface->getVirtualMaxX() && yVirtual + y < surface->getVirtualMaxY()
-						&& xVirtual + i > -1 && yVirtual + y > -1) {
-						surface->rawSetPixel(xVirtual + i, yVirtual + y, uiColour); // Colour this pixel now
+					if (xVirtual + i + xModifier < surface->getVirtualMaxX() && yVirtual + y + yModifier< surface->getVirtualMaxY()
+						&& xVirtual + i + xModifier > -1 && yVirtual + y + yModifier > -1) {
+						surface->rawSetPixel(xVirtual + i + xModifier, yVirtual + y + yModifier, uiColour);
 					}
 				}	
 			}		
-		}
+		} 
 		else {
-			surface->rawSetPixel(xVirtual, yVirtual, uiColour); // Colour this pixel now
+			if (xVirtual + xModifier < surface->getVirtualMaxX() && yVirtual + yModifier < surface->getVirtualMaxY()
+				&& xVirtual + xModifier > -1 && yVirtual + yModifier > -1) {
+				surface->rawSetPixel(xVirtual + xModifier, yVirtual + yModifier, uiColour);
+			}
 		}
-		return false; // We already coloured the pixel anyway
+		return false;
 	}
 
-	void stretchX() { if (xCompress > 1) --xCompress; else ++xStretch; }
-	void stretchY() { if (yCompress > 1) --yCompress; else ++yStretch; }
-	void compressX() { if (xStretch > 1) --xStretch; else ++xCompress; }
-	void compressY() { if (yStretch > 1) --yStretch; else ++yCompress; }
-
-	void compress() { compressX(); compressY(); }
-	void stretch() { stretchX(); stretchY(); }
-
-private:
-	int xStretch, yStretch, xCompress, yCompress;
-};
-
-class PsyapFilterPointsTranslation : public FilterPoints
-{
-public:
-	PsyapFilterPointsTranslation(int xModifier, int yModifier, FilterPoints* pNextFilter = nullptr)
-		: xModifier(xModifier), yModifier(yModifier), pNextFilter(pNextFilter)
-	{
-	}
-
-	bool filter(DrawingSurface* surface, int& xVirtual, int& yVirtual, unsigned int& uiColour) override
-	{
-		if (xVirtual + xModifier < surface->getVirtualMaxX() && yVirtual + yModifier < surface->getVirtualMaxY()
-			&& xVirtual + xModifier > -1 && yVirtual + yModifier > -1) {
-			xVirtual += xModifier;
-			yVirtual += yModifier;
+	void compress() {
+		if (m_iCompress > 1) {
+			--m_iCompress;
 		}
 		else {
-			return false;
+			++m_iStretch;
 		}
-		return (pNextFilter == nullptr) || pNextFilter->filter(surface, xVirtual, yVirtual, uiColour);
+	}
+
+	void stretch() { 
+		if (m_iStretch > 1) {
+			--m_iStretch;
+		}
+		else {
+			++m_iCompress;
+		}
 	}
 
 	void changeOffset(int offsetXIncrement, int offsetYIncrement)
@@ -84,7 +68,8 @@ public:
 		yModifier += offsetYIncrement;
 	}
 
+
 private:
+	int m_iStretch, m_iCompress;
 	int xModifier, yModifier;
-	FilterPoints* pNextFilter;
 };

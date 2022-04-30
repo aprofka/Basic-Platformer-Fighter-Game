@@ -4,7 +4,7 @@
 #include "RunningState.h"
 
 
-ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterScaling(0, 0), m_filterTranslation(0, 0, &m_filterScaling) {
+ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterMain() {
 	std::cout << "State Art Menu - Created\n";
 
 	this->m_currentEngine = newEngine;
@@ -26,10 +26,8 @@ ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterScaling(0, 0),
 
 	//m_currentEngine->lockForegroundForDrawing(); //To prevent conflicts/errors of 2 objects being drawn to the foreground at the same time
 
-	//m_currentEngine -> getBackgroundSurface()->setDrawPointsFilter(&m_filterTranslation);
-	m_currentEngine -> getForegroundSurface()->setDrawPointsFilter(&m_filterTranslation);
+	m_currentEngine -> getForegroundSurface()->setDrawPointsFilter(&m_filterMain);
 
-	
 	m_currentEngine->unlockForegroundForDrawing();
 	m_currentEngine->unlockBackgroundForDrawing();
 }
@@ -64,19 +62,19 @@ void ArtState::keyControl(int iKeyPressed) {
 	switch (iKeyPressed)
 	{
 	case SDLK_LEFT:
-		m_filterTranslation.changeOffset(10, 0);
+		m_filterMain.changeOffset(m_iScrollingSpeed, 0);
 		m_currentEngine->redrawDisplay();
 		break;
 	case SDLK_RIGHT:
-		m_filterTranslation.changeOffset(-10, 0);
+		m_filterMain.changeOffset(-m_iScrollingSpeed, 0);
 		m_currentEngine->redrawDisplay();
 		break;
 	case SDLK_UP:
-		m_filterTranslation.changeOffset(0, 10);
+		m_filterMain.changeOffset(0, m_iScrollingSpeed);
 		m_currentEngine->redrawDisplay();
 		break;
 	case SDLK_DOWN:
-		m_filterTranslation.changeOffset(0, -10);
+		m_filterMain.changeOffset(0, -m_iScrollingSpeed);
 		m_currentEngine->redrawDisplay();
 		break;
 	}
@@ -86,9 +84,9 @@ void ArtState::keyControl(int iKeyPressed) {
 void ArtState::mouseWheel(int x, int y, int which, int timestamp)
 {
 	if (y < 0)
-		m_filterScaling.compress();
+		m_filterMain.compress();
 	else if (y > 0)
-		m_filterScaling.stretch();
+		m_filterMain.stretch();
 
 	m_currentEngine->redrawDisplay();
 }
