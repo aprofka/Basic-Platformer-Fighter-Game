@@ -85,7 +85,8 @@ void MainMenuState::stateVirtPostDraw()
 		int iCenterW = (m_currentEngine->getWindowWidth() / 2);
 		int iCenterH = (m_currentEngine->getWindowHeight() / 2);
 		m_currentEngine->drawForegroundRectangle(iCenterW - 350, iCenterH - 250, iCenterW + 350, iCenterH + 250, 0xffffff);
-		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 225, "Enter your nickname here :", 0x000000, NULL);
+		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 30, "Enter your nickname here :", 0x000000, NULL);
+		m_currentEngine->drawForegroundRectangle(iCenterW - 300, iCenterH , iCenterW + 250, iCenterH + 50, 0x555555);
 		//m_currentEngine->unlockForegroundForDrawing();
 	}
 }

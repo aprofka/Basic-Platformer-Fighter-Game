@@ -1,6 +1,6 @@
  CourseworkBase2020
 
- Timestamp is 626c8c4a (Sat Apr 30 02:09:30 2022)
+ Timestamp is 626c905c (Sat Apr 30 02:26:52 2022)
 
  Preferred load address is 00400000
 
@@ -4395,7 +4395,7 @@
  0001:0001e15c       $LN52                      0041f15c     BaseEngine.obj
  0001:0001e1d4       $LN55                      0041f1d4     BaseEngine.obj
  0001:0001e270       $LN54                      0041f270     BaseEngine.obj
- 0001:0001fb40       ??R<lambda_f6ff54eb46dbebdd10fef071eced21ba>@@QBE@E@Z 00420b40 f   MainMenuState.obj
+ 0001:0001fb70       ??R<lambda_f6ff54eb46dbebdd10fef071eced21ba>@@QBE@E@Z 00420b70 f   MainMenuState.obj
  0001:000203da       __catch$??$_Emplace_reallocate@ABQAVDisplayableObject@@@?$vector@PAVDisplayableObject@@V?$allocator@PAVDisplayableObject@@@std@@@std@@QAEPAPAVDisplayableObject@@QAPAV2@ABQAV2@@Z$0 004213da f i MainMenuState.obj
  0001:0002062a       __catch$??$_Emplace_reallocate@PAVMenuOption@@@?$vector@PAVMenuOption@@V?$allocator@PAVMenuOption@@@std@@@std@@QAEPAPAVMenuOption@@QAPAV2@$$QAPAV2@@Z$0 0042162a f i MainMenuState.obj
  0001:00021170       ??$transform@V?$_String_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@V12@V<lambda_f6ff54eb46dbebdd10fef071eced21ba>@@@std@@YA?AV?$_String_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@0@V10@0V10@V<lambda_f6ff54eb46dbebdd10fef071eced21ba>@@@Z 00422170 f   MainMenuState.obj
