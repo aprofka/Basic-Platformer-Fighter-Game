@@ -15,5 +15,7 @@ public:
     int m_iOffset;
     std::vector<MenuOption*> m_arrMenuOptions;
     bool m_bFirstTimeLoad = false;
+
+    std::string m_sUsername;
 };
 
