@@ -13,6 +13,7 @@ public:
     void virtMainLoopDoBeforeUpdate() override;
     void copyAllBackgroundBuffer() override;
     int virtInitialiseObjects();
+    void virtPostDraw();
    //void virtMouseMoved(int iX, int iY);
     void virtKeyDown(int iKeyCode) override;
     void virtMouseWheel(int x, int y, int which, int timestamp) override;

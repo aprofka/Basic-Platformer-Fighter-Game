@@ -11,7 +11,9 @@ public:
     void stateAllBackgroundBuffer() override;
     void getNewMovableObject(void) override;
     void keyControl(int iKeyPressed) override;
+    void stateVirtPostDraw() override;
     int m_iOffset;
     std::vector<MenuOption*> m_arrMenuOptions;
+    bool m_bFirstTimeLoad = false;
 };
 

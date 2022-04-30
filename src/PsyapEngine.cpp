@@ -30,28 +30,22 @@ void PsyapEngine::virtMainLoopDoBeforeUpdate() {
 
 void PsyapEngine::copyAllBackgroundBuffer() {
 	m_state->stateAllBackgroundBuffer();
-	//BaseEngine::copyAllBackgroundBuffer();
-
 }
 
 int PsyapEngine::virtInitialiseObjects()
 {
-	// Record the fact that we are about to change the array
-	// so it doesn't get used elsewhere without reloading it
 	drawableObjectsChanged();
 	destroyOldObjects(true);
 	createObjectArray(5);
-	//m_rectObj1 = new PsyapDisplayableObject(this);
 	m_state -> getNewMovableObject();
 	//storeObjectInArray(0, m_rectObj1);
-
 	setAllObjectsVisible(true);
 	return 0;
 }
 
-//void PsyapEngine::virtMouseMoved(int iX, int iY) {
-	//m_rectObj1->setPosition(iX, iY); //Sets the object position to be the same the the mouse one
-//}
+void PsyapEngine::virtPostDraw() {
+	m_state->stateVirtPostDraw();
+}
 
 void PsyapEngine::virtKeyDown(int iKeyCode)
 {

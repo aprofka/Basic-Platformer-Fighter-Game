@@ -37,3 +37,7 @@ void BaseState::keyControl(int iKeyPressed)
 void BaseState::mouseWheel(int x, int y, int which, int timestamp)
 {
 }
+
+void BaseState::stateVirtPostDraw()
+{
+}

@@ -2,6 +2,7 @@
 #include "BaseState.h"
 #include "DisplayableObject.h"
 #include "vector"
+#include "SimpleImage.h"
 
 #include "PsyapFilterPointClasses.h" 
 
@@ -20,5 +21,6 @@ public:
 
     PsyapFilterPointsScaling m_filterScaling;
     PsyapFilterPointsTranslation m_filterTranslation;
+    SimpleImage rickRoll;
 };
 

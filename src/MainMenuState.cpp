@@ -3,6 +3,8 @@
 #include "ArtState.h"
 #include "PsyapEngine.h"
 #include "RunningState.h"
+#include <fstream>
+#include <sstream>
 
 
 MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
@@ -11,7 +13,6 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 
 	//Load Image
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/MainMenuState/MainMenuBackground.jpg", true);
-	//SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
 
 	//Draw imagine
 	backgroundLayer.renderImage(m_currentEngine->getBackgroundSurface(), 0, 0,
@@ -23,26 +24,24 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 
 	m_iOffset = 0;
 
-	//m_currentEngine->lockForegroundForDrawing(); //To prevent conflicts/errors of 2 objects being drawn to the foreground at the same time
+	
+	std::ifstream indata; // indata is like cin
+	indata.open("saves/userData.txt"); // opens the file
+	indata >> m_bFirstTimeLoad;
+
+	
+
+	indata.close();
+	std::cout << "End-of-file reached.." << std::endl;
+	
+	/*
+	std::ofstream file;
+	file.open("saves/userData.txt");
+	file << true << std::endl;
+	file.close();
+	*/
+	//m_currentEngine->lockForegroundForDrawing();
 	//m_currentEngine->unlockForegroundForDrawing();
-}
-
-void MainMenuState::stateMainLoopDoBeforeUpdate()
-{
-	m_iOffset = (m_iOffset + 1) % m_currentEngine->getWindowHeight();
-	m_currentEngine->redrawDisplay();
-}
-
-void MainMenuState::stateAllBackgroundBuffer()
-{
-	//m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, m_iOffset);
-	//m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() - m_iOffset, m_currentEngine->getWindowWidth(), 
-	//	m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
-
-	//std::cout << m_iOffset << std::endl;
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, -m_iOffset);
-	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(),
-		m_currentEngine->getWindowHeight(), 0, m_currentEngine->getWindowHeight() - m_iOffset);
 }
 
 void MainMenuState::getNewMovableObject(void) {
@@ -60,12 +59,49 @@ void MainMenuState::getNewMovableObject(void) {
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[1]);
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[2]);
 	m_currentEngine->appendObjectToArray(m_arrMenuOptions[3]);
-
 }
+
+void MainMenuState::stateMainLoopDoBeforeUpdate()
+{
+	m_iOffset = (m_iOffset + 1) % m_currentEngine->getWindowHeight();
+
+	
+
+	m_currentEngine->redrawDisplay();
+}
+
+
+void MainMenuState::stateAllBackgroundBuffer()
+{
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(), m_currentEngine->getWindowHeight(), 0, -m_iOffset);
+	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, 0, m_currentEngine->getWindowWidth(),
+		m_currentEngine->getWindowHeight(), 0, m_currentEngine->getWindowHeight() - m_iOffset);
+}
+
+void MainMenuState::stateVirtPostDraw()
+{
+	if (m_bFirstTimeLoad) {
+		//m_currentEngine->lockForegroundForDrawing();
+		int iCenterW = (m_currentEngine->getWindowWidth() / 2);
+		int iCenterH = (m_currentEngine->getWindowHeight() / 2);
+		m_currentEngine->drawForegroundRectangle(iCenterW - 350, iCenterH - 250, iCenterW + 350, iCenterH + 250, 0xffffff);
+		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 225, "Enter your nickname here :", 0x000000, NULL);
+		//m_currentEngine->unlockForegroundForDrawing();
+	}
+}
+
+
 
 //Menu selection button
 void MainMenuState::keyControl(int iKeyPressed) {
-	if (iKeyPressed == SDLK_UP || iKeyPressed == SDLK_DOWN || iKeyPressed == 13) {
+	if (m_bFirstTimeLoad) {
+		std::string temp = SDL_GetKeyName(iKeyPressed);
+		if (SDL_GetModState() != KMOD_CAPS)
+			std::transform(temp.begin(), temp.end(), temp.begin(),
+				[](unsigned char temp) { return std::tolower(temp); });
+		std::cout << temp << std::endl;
+	} 
+	else if (iKeyPressed == SDLK_UP || iKeyPressed == SDLK_DOWN || iKeyPressed == 13) {
 		for (size_t i = 0; i < m_arrMenuOptions.size(); i++) {
 			if (m_arrMenuOptions[i] -> m_iSelected) {
 				
@@ -99,6 +135,8 @@ void MainMenuState::keyControl(int iKeyPressed) {
 	}
 	
 }
+
+
 
 
 

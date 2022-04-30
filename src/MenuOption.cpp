@@ -28,12 +28,4 @@ void MenuOption::virtDoUpdate(int iCurrentTime)
 }
 
 void MenuOption::virtKeyDown(int iKeyPressed) {
-	
-
-	
-
-
-
-
-	
 }
