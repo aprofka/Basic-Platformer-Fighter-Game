@@ -195,6 +195,9 @@
     <ClInclude Include="PsyapFilterPointClasses.h">
       <Filter>Header Files\Coursework\Util</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyCharacter.h">
+      <Filter>Header Files\Coursework\PlayableObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -280,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="ArtState.cpp">
       <Filter>Source Files\Coursework\States</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCharacter.cpp">
+      <Filter>Source Files\Coursework\PlayableObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

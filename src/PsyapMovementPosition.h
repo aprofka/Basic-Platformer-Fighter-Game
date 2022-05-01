@@ -16,6 +16,3 @@ public:
 		m_iEndX = iX;
 	}
 };
-
-
-

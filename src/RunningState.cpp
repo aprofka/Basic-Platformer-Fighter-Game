@@ -15,7 +15,6 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	
 
 	this->m_currentEngine = newEngine;
-	this->m_oMovObject = nullptr;
 
 	//Load Image
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/GameStage/background/Background.png", true);
@@ -46,8 +45,8 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	m_TileManager.drawAllTiles(m_currentEngine, m_currentEngine -> getBackgroundSurface());
 
 	getNewMovableObject();
-	m_currentEngine->unlockBackgroundForDrawing();
-	m_currentEngine->unlockForegroundForDrawing();
+	//m_currentEngine->unlockBackgroundForDrawing();
+	//m_currentEngine->unlockForegroundForDrawing();
 }
 
 void RunningState::stateAllBackgroundBuffer()
@@ -57,8 +56,10 @@ void RunningState::stateAllBackgroundBuffer()
 
 
 void RunningState::getNewMovableObject(void){
-	m_oMovObject = new PlayableCharacter(m_currentEngine);
-	m_currentEngine->appendObjectToArray(m_oMovObject);
+	m_oMainCharObject = new PlayableCharacter(m_currentEngine);
+	m_oEnemyObject = new EnemyCharacter(m_currentEngine);
+	m_currentEngine->appendObjectToArray(m_oMainCharObject);
+	m_currentEngine->appendObjectToArray(m_oEnemyObject);
 }
 
 

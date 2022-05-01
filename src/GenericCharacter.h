@@ -25,6 +25,8 @@ public:
 
 	void changeTexture(int iTextureOffSetY, int iTextureResetX, std::string sTextureName, bool bRepeat);
 
+	virtual void textureManager();
+
 	int m_iTextureOffSetX = 0;
 	int m_iTextureOffSetY = 0;
 	bool m_bLookLeft = false;

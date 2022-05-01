@@ -96,6 +96,7 @@
     <ClInclude Include="ArtState.h" />
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="DraggingDemo.h" />
+    <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="FlashingDemo.h" />
     <ClInclude Include="GenericCharacter.h" />
     <ClInclude Include="ImageMappingDemo.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="BaseState.cpp" />
     <ClCompile Include="DraggingDemo.cpp" />
     <ClCompile Include="DrawingSurface.cpp" />
+    <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="FlashingDemo.cpp" />
     <ClCompile Include="GenericCharacter.cpp" />
     <ClCompile Include="ImageMappingDemo.cpp" />

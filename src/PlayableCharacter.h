@@ -19,9 +19,10 @@ public:
         m_mSpritePhases["Defence"] = 1;
     }
 
+    void textureManager() override;
+
     void virtKeyDown(int iKeyPressed) override;
     void virtKeyUp(int iKeyPressed) override;
-
     
     int m_iKeyDelta = 0;
     int m_iLastKeyPressed = 0;

@@ -5,6 +5,7 @@
 #include "RunningState.h"
 #include "GenericCharacter.h"
 #include "PlayableCharacter.h"
+#include "EnemyCharacter.h"
 
 
 class RunningState :
@@ -15,4 +16,6 @@ public:
     RunningState(PsyapEngine* newEngine);
     void stateAllBackgroundBuffer() override;
     void getNewMovableObject(void) override;
+    GenericCharacter* m_oMainCharObject;
+    EnemyCharacter* m_oEnemyObject;
 };

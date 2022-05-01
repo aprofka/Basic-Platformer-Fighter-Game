@@ -16,8 +16,6 @@ public:
 		this-> m_currentEngine = newEngine;
 	}
 
-	GenericCharacter* m_oMovObject;
-
 	virtual void getNewMovableObject();
 	virtual void stateMainLoopDoBeforeUpdate();
 	virtual void stateAllBackgroundBuffer();
