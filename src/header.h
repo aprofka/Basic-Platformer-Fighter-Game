@@ -71,3 +71,4 @@
 #define CHECK_BLIT_SURFACE(a)
 #define CHECK_WRITE_SURFACE(a)
 #endif
+

@@ -26,6 +26,7 @@ const int BaseScreenHeight = 800;
 // Main calls this then checks for errors before ending.
 int doProgram(int argc, char *argv[])
 { 
+	//_CrtSetBreakAlloc(174);
 	int iResult = 0;
 
 	// Uncomment only ONE of the following lines - to choose which object to create - ENSURE ONLY ONE IS CREATED.

@@ -12,6 +12,10 @@ BaseState::BaseState(void) {
 	m_currentEngine = nullptr;
 }
 
+BaseState::~BaseState()
+{
+}
+
 BaseState::BaseState(PsyapEngine* newEngine) {
 	this -> m_currentEngine = newEngine;
 }

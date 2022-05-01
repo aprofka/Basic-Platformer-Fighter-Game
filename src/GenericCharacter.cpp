@@ -12,6 +12,14 @@ GenericCharacter::GenericCharacter(PsyapEngine* pEngine, std::string sSkinAddres
 	m_oMovement.calculate(pEngine->getModifiedTime());
 	m_iCurrentScreenX = m_oMovement.getX();
 	m_iCurrentScreenY = m_oMovement.getY();
+
+	m_oColiDetection = new PsyapCollisionDetection();
+}
+
+GenericCharacter::~GenericCharacter()
+{
+	delete m_pFlipperMapping;
+	delete m_oColiDetection;
 }
 
 //Deals with what to draw on creation of the object
@@ -27,7 +35,7 @@ void GenericCharacter::virtDraw()
 	int iBarStartX = m_iCurrentScreenX + 25 + m_iHealthBarOffSetX;
 	int iBarStartY = m_iCurrentScreenY - m_iDrawHeight + 25 + m_iHealthBarOffSetY;
 	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + 100, iBarStartY + 10, 0xff0000);
-	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + m_iHealth - 50, iBarStartY + 10, 0x00ff00);
+	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + m_iHealth, iBarStartY + 10, 0x00ff00);
 	//m_oSkinTile.renderImageWithMask(getEngine()->getForegroundSurface(), m_iTextureOffSetX, m_iTextureOffSetY,
 	//	m_iCurrentScreenX, m_iCurrentScreenY - m_iDrawHeight, m_iDrawWidth, m_iDrawHeight);
 }
@@ -37,6 +45,41 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 	m_oMovement.calculate(getEngine()->getModifiedTime());
 	m_iCurrentScreenX = m_oMovement.getX();
 	m_iCurrentScreenY = m_oMovement.getY();
+
+
+	//Collision detection
+	GenericCharacter* pObject;
+	for (int iObjectId = 0;
+		(pObject = dynamic_cast<GenericCharacter*>(getEngine()->getDisplayableObject(iObjectId))) != NULL; iObjectId++)
+	{
+		if (pObject == this) // This is us, skip it
+			continue;
+		if (pObject == nullptr) // Object does not exist, skip it
+			continue;		// If you need to cast to the sub-class type, you must use dynamic_cast, see lecture 19
+
+		if (m_oColiDetection->checkRectangles(
+			pObject->m_iCurrentScreenX, pObject->getDrawWidth() + pObject->m_iCurrentScreenX,
+			pObject->m_iCurrentScreenY, pObject->getDrawHeight() + pObject->m_iCurrentScreenY,
+			this->m_iCurrentScreenX, this->getDrawWidth() + m_iCurrentScreenX,
+			this->m_iCurrentScreenY, this->getDrawHeight() + m_iCurrentScreenY, getEngine()->getForegroundSurface()))
+
+		{
+			this->redrawDisplay();
+
+			int delta = getEngine()->getModifiedTime() - m_iLastAttack ;
+			if (m_iSpriteTextureState == TextureState::ATTACKING && delta > 1000) {
+				pObject->m_iHealth -= m_iAttackDMG;
+				if (pObject->m_iHealth < 0)
+					pObject->m_iHealth = 0;
+				m_iLastAttack = getEngine()->getModifiedTime();
+			}
+
+		}
+		else {
+			//This will be ran if there is no colision with another element(cursor)
+			//It determines to direction of the object when it encounters a wall
+		}
+	}
 
 	//This will run the next animation only if the current one is done and if any are pending
 	//If the pending ones would go bellow the ground level, they will be adjusted.

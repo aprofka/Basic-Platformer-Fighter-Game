@@ -10,6 +10,12 @@ RunningState::RunningState(void) : BaseState() {
 	std::cout << "State Running - Created\n";
 }
 
+RunningState::~RunningState()
+{
+	delete m_oMainCharObject;
+	delete m_oEnemyObject;
+}
+
 RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	std::cout << "State Running - Created\n";
 	
@@ -58,8 +64,9 @@ void RunningState::stateAllBackgroundBuffer()
 void RunningState::getNewMovableObject(void){
 	m_oMainCharObject = new PlayableCharacter(m_currentEngine);
 	m_oEnemyObject = new EnemyCharacter(m_currentEngine);
-	m_currentEngine->appendObjectToArray(m_oMainCharObject);
-	m_currentEngine->appendObjectToArray(m_oEnemyObject);
+
+	m_currentEngine->storeObjectInArray(0, m_oMainCharObject);
+	m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
 }
 
 

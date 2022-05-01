@@ -3,11 +3,6 @@
 
 //Default constructor as it needs at least pEngine
 MenuOption::MenuOption(PsyapEngine* pEngine, int iHeightOffSet, const char * sText) : DisplayableObject(pEngine) {
-	//m_iCurrentScreenX = 100; // Starting position on the screen
-	//m_iCurrentScreenY = 100;
-	//m_iDrawWidth = 95; // Width of drawing area
-	//m_iDrawHeight = 95; // Height of drawing area
-	//m_iColour = 0x00ff00; // Colour of the cursor/box
 	m_pEngine = pEngine;
 	m_iHeightOffSet = iHeightOffSet;
 	m_sText = sText;
@@ -25,7 +20,4 @@ void MenuOption::virtDraw()
 void MenuOption::virtDoUpdate(int iCurrentTime)
 {
 	this->redrawDisplay();
-}
-
-void MenuOption::virtKeyDown(int iKeyPressed) {
 }

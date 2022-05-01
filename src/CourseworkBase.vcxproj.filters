@@ -168,9 +168,6 @@
     <ClInclude Include="MainMenuState.h">
       <Filter>Header Files\Coursework\States</Filter>
     </ClInclude>
-    <ClInclude Include="PsyapDisplayableObject.h">
-      <Filter>Header Files\Coursework\PlayableObjects</Filter>
-    </ClInclude>
     <ClInclude Include="GenericCharacter.h">
       <Filter>Header Files\Coursework\PlayableObjects</Filter>
     </ClInclude>
@@ -197,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="EnemyCharacter.h">
       <Filter>Header Files\Coursework\PlayableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PsyapCollisionDetection.h">
+      <Filter>Header Files\Coursework\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,9 +262,6 @@
     </ClCompile>
     <ClCompile Include="RunningState.cpp">
       <Filter>Source Files\Coursework\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PsyapDisplayableObject.cpp">
-      <Filter>Source Files\Coursework\PlayableObjects</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuState.cpp">
       <Filter>Source Files\Coursework\States</Filter>

@@ -36,6 +36,11 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 	//m_currentEngine->unlockForegroundForDrawing();
 }
 
+MainMenuState::~MainMenuState()
+{
+	std::vector<MenuOption*>().swap(m_arrMenuOptions);
+}
+
 void MainMenuState::getNewMovableObject(void) {
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -125, "Play"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -50, "Leaderboard"));
@@ -47,10 +52,10 @@ void MainMenuState::getNewMovableObject(void) {
 		i->m_arrMenuOptions = m_arrMenuOptions;
 	}
 
-	m_currentEngine->appendObjectToArray(m_arrMenuOptions[0]);
-	m_currentEngine->appendObjectToArray(m_arrMenuOptions[1]);
-	m_currentEngine->appendObjectToArray(m_arrMenuOptions[2]);
-	m_currentEngine->appendObjectToArray(m_arrMenuOptions[3]);
+	m_currentEngine->storeObjectInArray(0, m_arrMenuOptions[0]);
+	m_currentEngine->storeObjectInArray(1, m_arrMenuOptions[1]);
+	m_currentEngine->storeObjectInArray(2, m_arrMenuOptions[2]);
+	m_currentEngine->storeObjectInArray(3, m_arrMenuOptions[3]);
 }
 
 void MainMenuState::stateMainLoopDoBeforeUpdate()

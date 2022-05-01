@@ -8,12 +8,7 @@ class MenuOption :
 public:
 	MenuOption(PsyapEngine* pEngine, int iHeightOffSet, const char * sText);
 	void virtDraw();
-	//void virtDrawStringsUnderneath();
-	//void setColour(int c);
-	//int getColour();
 	void virtDoUpdate(int iCurrentTime);
-
-	void virtKeyDown(int iKeyPressed);
 
 	int m_iHeightOffSet;
 	const char* m_sText;

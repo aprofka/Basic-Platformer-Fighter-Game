@@ -1,11 +1,16 @@
 #include "header.h"
 
 #include "PsyapEngine.h"
-#include "PsyapDisplayableObject.h"
 #include "GenericCharacter.h"
 #include "RunningState.h"
 #include "MainMenuState.h"
+#include <typeinfo>
 
+
+PsyapEngine::~PsyapEngine()
+{
+	delete m_state;
+}
 
 void PsyapEngine::virtSetupBackgroundBuffer() {
 	int iScreenCenterX = (getWindowWidth() / 2);
@@ -38,7 +43,6 @@ int PsyapEngine::virtInitialiseObjects()
 	destroyOldObjects(true);
 	createObjectArray(5);
 	m_state -> getNewMovableObject();
-	//storeObjectInArray(0, m_rectObj1);
 	setAllObjectsVisible(true);
 	return 0;
 }

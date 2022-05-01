@@ -7,6 +7,7 @@ class MainMenuState :
 {
 public:
     MainMenuState(PsyapEngine* newEngine);
+    ~MainMenuState() override;
     void stateMainLoopDoBeforeUpdate() override;
     void stateAllBackgroundBuffer() override;
     void getNewMovableObject(void) override;

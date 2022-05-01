@@ -9,6 +9,7 @@ class PsyapEngine :
 {
 public:
     //void SetState(BaseState* state);
+    ~PsyapEngine();
     void virtSetupBackgroundBuffer();
     void virtMainLoopDoBeforeUpdate() override;
     void copyAllBackgroundBuffer() override;

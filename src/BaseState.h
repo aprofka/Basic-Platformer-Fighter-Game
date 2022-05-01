@@ -10,6 +10,7 @@ protected:
 
 public:
 	BaseState();
+	virtual ~BaseState();
 	BaseState(PsyapEngine* newEngine);
 
 	void setEngine(PsyapEngine *newEngine) {

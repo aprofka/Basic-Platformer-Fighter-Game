@@ -5,6 +5,7 @@
 #include <string>
 #include "PsyapMovementPosition.h"
 #include "PsyapImagePixelMapping.h"
+#include "PsyapCollisionDetection.h"
 
 enum class TextureState {
 	INVALID = 0,
@@ -20,6 +21,8 @@ class GenericCharacter : public DisplayableObject
 {
 public:
 	GenericCharacter(PsyapEngine* pEngine, std::string sAddress, int iFloorLevel);
+	~GenericCharacter();
+
 	void virtDraw();
 	void virtDoUpdate(int iCurrentTime);
 
@@ -61,6 +64,8 @@ public:
 	int m_iAttackDMG;
 	int m_iHealthBarOffSetX;
 	int m_iHealthBarOffSetY;
+	int m_iLastAttack = 0;
+	PsyapCollisionDetection* m_oColiDetection;
 
 	int getPixelColour(int x, int y) { return m_oSkinTile.getPixelColour(x, y); }
 private:
