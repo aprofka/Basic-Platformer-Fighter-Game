@@ -19,7 +19,7 @@ enum class TextureState {
 class GenericCharacter : public DisplayableObject
 {
 public:
-	GenericCharacter(PsyapEngine* pEngine, std::string sAddress);
+	GenericCharacter(PsyapEngine* pEngine, std::string sAddress, int iFloorLevel);
 	void virtDraw();
 	void virtDoUpdate(int iCurrentTime);
 
@@ -33,7 +33,7 @@ public:
 	bool m_bRepeatLastMove = false;
 	std::string m_sLastMovement = "";
 
-	int m_iGroundLevel = 700;
+	int m_iGroundLevel;
 	int m_iMovementSpeed = 0;
 	int m_iSpriteFrameCount = 0;
 	TextureState m_iSpriteTextureState = TextureState::IDLE;
@@ -57,6 +57,10 @@ public:
 	PsyapImagePixelMapping* m_pFlipperMapping;
 
 	int m_iTextureUpdateDelta = 0;
+	int m_iHealth = 100;
+	int m_iAttackDMG;
+	int m_iHealthBarOffSetX;
+	int m_iHealthBarOffSetY;
 
 	int getPixelColour(int x, int y) { return m_oSkinTile.getPixelColour(x, y); }
 private:

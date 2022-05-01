@@ -10,7 +10,7 @@ void EnemyCharacter::textureManager() {
 			changeTexture(0, 0, "Idle", true);
 			break;
 		case TextureState::RUNNING:
-			changeTexture(2, 0, "Running", true);
+			changeTexture(2, 1, "Running", true);
 			break;
 		case TextureState::JUMPING:
 			changeTexture(3, 2, "Jumping", true);

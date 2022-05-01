@@ -9,15 +9,17 @@ class PsyapImagePixelMapping : public ImagePixelMapping
 public:
 	PsyapImagePixelMapping()
 	{
-		m_dFrameSize = 0.00;
+		m_dXFrameSize = 0.00;
+		m_dYFrameSize = 0.00;
 		m_dXPos = 0.00;
 		m_dYPos = 0.00;
 		m_bFlipped = false;
 	}
 
-	PsyapImagePixelMapping(double dFrameSize, double dXPos, double dYPos, bool bFlipped)
+	PsyapImagePixelMapping(double dXFrameSize, double dYFrameSize, double dXPos, double dYPos, bool bFlipped)
 	{
-		m_dFrameSize = dFrameSize;
+		m_dXFrameSize = dXFrameSize;
+		m_dXFrameSize = dXFrameSize;
 		m_dXPos = dXPos;
 		m_dYPos = dYPos;
 		m_bFlipped = bFlipped;
@@ -32,12 +34,12 @@ public:
 
 		if (m_bFlipped) {
 			x = image.getWidth() - x;
-			x -= m_dFrameSize * (m_dXPos + 2);
+			x -= m_dXFrameSize * (m_dXPos + 2);
 		}
 		else {
-			x += m_dFrameSize * m_dXPos;
+			x += m_dXFrameSize * m_dXPos;
 		}
-		y += m_dFrameSize * m_dYPos;
+		y += m_dYFrameSize * m_dYPos;
 
 		// Ensure it is within the size of the image
 		while (x > image.getWidth())
@@ -54,15 +56,17 @@ public:
 		return true;
 	}
 
-	void setNewTexture(double dFrameSize, double dXPos, double dYPos, bool bFlipped) {
-		m_dFrameSize = dFrameSize;
+	void setNewTexture(double dXFrameSize, double dYFrameSize, double dXPos, double dYPos, bool bFlipped) {
+		m_dXFrameSize = dXFrameSize;
+		m_dYFrameSize = dYFrameSize;
 		m_dXPos = dXPos;
 		m_dYPos = dYPos;
 		m_bFlipped = bFlipped;
 	}
 
 protected:
-	double m_dFrameSize;
+	double m_dXFrameSize;
+	double m_dYFrameSize;
 	double m_dXPos;
 	double m_dYPos;
 	bool m_bFlipped;

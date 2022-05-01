@@ -3,10 +3,11 @@
 
 
 //Default constructor as it needs at least pEngine
-GenericCharacter::GenericCharacter(PsyapEngine* pEngine, std::string sSkinAddress) : DisplayableObject(pEngine) {
-	m_pFlipperMapping = new PsyapImagePixelMapping(0.00,0.00,1.00,false);
+GenericCharacter::GenericCharacter(PsyapEngine* pEngine, std::string sSkinAddress,int iFloorLevel) : DisplayableObject(pEngine) {
+	m_pFlipperMapping = new PsyapImagePixelMapping(0.00,0.00,0.00,1.00,false);
 	m_oSkinTile = ImageManager::loadImage(sSkinAddress, true);
 
+	m_iGroundLevel = iFloorLevel;
 	m_oMovement.setup(250, m_iGroundLevel, 250, m_iGroundLevel, pEngine -> getModifiedTime(), pEngine->getModifiedTime() + m_iMovementSpeed);
 	m_oMovement.calculate(pEngine->getModifiedTime());
 	m_iCurrentScreenX = m_oMovement.getX();
@@ -20,9 +21,13 @@ void GenericCharacter::virtDraw()
 	m_iCurrentScreenX = m_oMovement.getX();
 	m_iCurrentScreenY = m_oMovement.getY();
 
-	m_pFlipperMapping->setNewTexture(168.00,static_cast<double>(m_iSpriteFrameCount + m_iTextureOffSetX), static_cast<double>(m_iTextureOffSetY), m_bFlipped);
+	m_pFlipperMapping->setNewTexture(m_iDrawWidth,m_iDrawHeight,static_cast<double>(m_iSpriteFrameCount + m_iTextureOffSetX), static_cast<double>(m_iTextureOffSetY), m_bFlipped);
 	m_oSkinTile.renderImageApplyingMapping(getEngine(), getEngine()->getForegroundSurface() , m_iCurrentScreenX, m_iCurrentScreenY - m_iDrawHeight, m_iDrawWidth, m_iDrawHeight, m_pFlipperMapping);
 
+	int iBarStartX = m_iCurrentScreenX + 25 + m_iHealthBarOffSetX;
+	int iBarStartY = m_iCurrentScreenY - m_iDrawHeight + 25 + m_iHealthBarOffSetY;
+	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + 100, iBarStartY + 10, 0xff0000);
+	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + m_iHealth - 50, iBarStartY + 10, 0x00ff00);
 	//m_oSkinTile.renderImageWithMask(getEngine()->getForegroundSurface(), m_iTextureOffSetX, m_iTextureOffSetY,
 	//	m_iCurrentScreenX, m_iCurrentScreenY - m_iDrawHeight, m_iDrawWidth, m_iDrawHeight);
 }
@@ -78,7 +83,7 @@ void GenericCharacter::changeTexture(int iTextureOffSetY,int iTextureResetX ,std
 	}
 	
 	int delta = getEngine()->getRawTime() - m_iLastSpriteChangeTime;
-	if (delta < 100) {
+	if (delta < m_iTextureUpdateDelta) {
 
 	}
 	else if (m_mSpritePhases[sTextureName] == m_iSpriteFrameCount || m_sLastMovement != sTextureName) {
