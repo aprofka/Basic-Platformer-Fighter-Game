@@ -18,6 +18,7 @@ public:
    //void virtMouseMoved(int iX, int iY);
     void virtKeyDown(int iKeyCode) override;
     void virtMouseWheel(int x, int y, int which, int timestamp) override;
+    void setBackgroundSurface(DrawingSurface* pSurface);
     BaseState* m_state;
 
 private:

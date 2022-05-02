@@ -62,3 +62,7 @@ void PsyapEngine::virtMouseWheel(int x, int y, int which, int timestamp)
 	m_state->mouseWheel(x,y,which,timestamp);
 }
 
+void PsyapEngine::setBackgroundSurface(DrawingSurface* pSurface) {
+	m_pBackgroundSurface = pSurface;
+}
+

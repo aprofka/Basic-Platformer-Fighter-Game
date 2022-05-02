@@ -19,7 +19,7 @@ public:
 	PsyapImagePixelMapping(double dXFrameSize, double dYFrameSize, double dXPos, double dYPos, bool bFlipped)
 	{
 		m_dXFrameSize = dXFrameSize;
-		m_dXFrameSize = dXFrameSize;
+		m_dYFrameSize = dYFrameSize;
 		m_dXPos = dXPos;
 		m_dYPos = dYPos;
 		m_bFlipped = bFlipped;

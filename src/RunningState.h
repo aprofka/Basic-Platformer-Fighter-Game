@@ -15,8 +15,12 @@ public:
     RunningState();
     ~RunningState();
     RunningState(PsyapEngine* newEngine);
+    void backgroundSetup(SimpleImage image);
     void stateAllBackgroundBuffer() override;
     void getNewMovableObject(void) override;
     GenericCharacter* m_oMainCharObject;
     EnemyCharacter* m_oEnemyObject;
+    std::vector<DrawingSurface*> m_arrBackgroundSurfaces;
+    int m_iLastUpdateBackground = 0;
+    int m_iLastBackground = 0;
 };

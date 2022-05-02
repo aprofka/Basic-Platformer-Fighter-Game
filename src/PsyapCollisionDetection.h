@@ -1,5 +1,6 @@
 #pragma once
-#include "DrawingSurface.h"
+#include "BaseEngine.h"
+#include <sstream>
 
 class PsyapCollisionDetection
 {
@@ -14,7 +15,7 @@ public:
 	x2l and x2r are the second rectangle's x coordinates for left and right sides
 	y2t and y2b are the second rectangle's y coordinates for top and bottom
 	*/
-	bool checkRectangles(int x1l, int x1r, int y1t, int y1b, int x2l, int x2r, int y2t, int y2b,DrawingSurface* surface)
+	bool checkRectangles(int x1l, int x1r, int y1t, int y1b, int x2l, int x2r, int y2t, int y2b,BaseEngine* pEngine)
 	{
 
 		//std::cout << x2r << std::endl;
@@ -37,14 +38,22 @@ public:
 			m_bCollision = true;
 		}
 
-		if(m_bCollision)
+		if (m_bCollision)
+			//std::cout << m_iLeftX << std::endl;
+			//std::cout << m_iRightX << std::endl;
+			//std::cout << "===================" << std::endl;
 			for (int iPixelX = m_iLeftX; iPixelX != m_iRightX; iPixelX++) {
 				//std::cout << "Collision2" << std::endl;
 				for (int iPixelY = m_iTopY; iPixelY != m_iBottomY; iPixelY++) {
 					//std::cout << "Collision1" << std::endl;
-					if (surface -> rawGetPixel(iPixelX, iPixelY) != false) {
+					std::stringstream stream;
+					stream << std::hex << pEngine->rawGetForegroundPixel(iPixelX, iPixelY);
+					std::string result(stream.str());
+					//std::cout << result << std::endl;
+					if (result.at(2) == 'f' && result.at(3) == 'f') {
 						std::cout << "Collision3" << std::endl;
-						//std::cout << surface->getPixel(0, 0) << std::endl;
+						//std::cout << pEngine->rawGetForegroundPixel(0, 0) << std::endl;
+						//std::cout << pEngine -> rawGetForegroundPixel(iPixelX, iPixelY) << std::endl;
 						//std::cout << surface->getPixel(iPixelX, iPixelY) << std::endl;
 						return true;
 					}

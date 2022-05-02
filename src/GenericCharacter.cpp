@@ -61,7 +61,7 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 			pObject->m_iCurrentScreenX, pObject->getDrawWidth() + pObject->m_iCurrentScreenX,
 			pObject->m_iCurrentScreenY, pObject->getDrawHeight() + pObject->m_iCurrentScreenY,
 			this->m_iCurrentScreenX, this->getDrawWidth() + m_iCurrentScreenX,
-			this->m_iCurrentScreenY, this->getDrawHeight() + m_iCurrentScreenY, getEngine()->getForegroundSurface()))
+			this->m_iCurrentScreenY, this->getDrawHeight() + m_iCurrentScreenY, getEngine()))
 
 		{
 			this->redrawDisplay();
