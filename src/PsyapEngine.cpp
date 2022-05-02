@@ -12,6 +12,15 @@ PsyapEngine::~PsyapEngine()
 	delete m_state;
 }
 
+void PsyapEngine::changeState(BaseState* newState) {
+	BaseState* prevState = m_state;
+	if (m_state != nullptr) {
+		m_state = newState;
+		delete prevState;
+
+	}
+}
+
 void PsyapEngine::virtSetupBackgroundBuffer() {
 	int iScreenCenterX = (getWindowWidth() / 2);
 	int iScreenCenterY = (getWindowHeight() / 2);

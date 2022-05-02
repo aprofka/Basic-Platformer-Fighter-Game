@@ -15,6 +15,7 @@ enum class TextureState {
 	FALLING = 4,
 	ATTACKING = 5,
 	DEFENCE = 6,
+	DEAD = 7,
 };
 
 class GenericCharacter : public DisplayableObject
@@ -66,6 +67,9 @@ public:
 	int m_iHealthBarOffSetY;
 	int m_iLastAttack = 0;
 	PsyapCollisionDetection* m_oColiDetection;
+	bool m_bCollision = false;
+	bool m_bCanAttack = true; 
+	bool m_bDelete = false; 
 
 	int getPixelColour(int x, int y) { return m_oSkinTile.getPixelColour(x, y); }
 private:

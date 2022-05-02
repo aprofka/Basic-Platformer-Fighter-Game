@@ -18,6 +18,7 @@ public:
     void backgroundSetup(SimpleImage image);
     void stateAllBackgroundBuffer() override;
     void getNewMovableObject(void) override;
+    void stateVirtPostDraw() override;
     GenericCharacter* m_oMainCharObject;
     EnemyCharacter* m_oEnemyObject;
     std::vector<DrawingSurface*> m_arrBackgroundSurfaces;

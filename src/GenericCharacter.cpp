@@ -18,6 +18,7 @@ GenericCharacter::GenericCharacter(PsyapEngine* pEngine, std::string sSkinAddres
 
 GenericCharacter::~GenericCharacter()
 {
+	std::cout << "Delete General" << std::endl;
 	delete m_pFlipperMapping;
 	delete m_oColiDetection;
 }
@@ -65,24 +66,27 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 
 		{
 			this->redrawDisplay();
-
-			int delta = getEngine()->getModifiedTime() - m_iLastAttack ;
-			if (m_iSpriteTextureState == TextureState::ATTACKING && delta > 1000) {
-				pObject->m_iHealth -= m_iAttackDMG;
-				if (pObject->m_iHealth < 0)
-					pObject->m_iHealth = 0;
-				m_iLastAttack = getEngine()->getModifiedTime();
+			
+			if (m_iSpriteTextureState == TextureState::ATTACKING && m_bCanAttack) {
+				if (pObject->m_iSpriteTextureState != TextureState::DEFENCE) {
+					pObject->m_iHealth -= m_iAttackDMG;
+					if (pObject->m_iHealth < 0) {
+						pObject->m_iHealth = 0;
+					}
+					m_bCanAttack = false; 
+				}
 			}
+			m_bCollision = true;
 
 		}
 		else {
-			//This will be ran if there is no colision with another element(cursor)
-			//It determines to direction of the object when it encounters a wall
+			m_bCollision = false;
 		}
 	}
 
 	//This will run the next animation only if the current one is done and if any are pending
 	//If the pending ones would go bellow the ground level, they will be adjusted.
+	
 	if ((m_iCorrectionY != 0 || m_iCorrectionX != 0) && m_oMovement.hasMovementFinished(getEngine()->getModifiedTime())) {
 		if (m_iCurrentScreenY + m_iCorrectionY > m_iGroundLevel) {
 			m_iCorrectionY = m_iGroundLevel - m_iCurrentScreenY;
@@ -92,11 +96,11 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 			m_iSpriteTextureState = TextureState::JUMPING;
 		}
 		else if (m_iCorrectionY == 0 && m_iCorrectionX != 0 && m_iSpriteTextureState != TextureState::RUNNING) {
-			std::cout << "FELL RUNNING" << std::endl;
+			//std::cout << "FELL RUNNING" << std::endl;
 			m_iSpriteTextureState = TextureState::RUNNING;
 		}
 		else if (m_iCurrentScreenY < m_iGroundLevel - 200 && m_iSpriteTextureState != TextureState::FALLING) { // Jump height limit
-			std::cout << "Height Limit" << std::endl;
+			//std::cout << "Height Limit" << std::endl;
 			m_iCorrectionY = 5;
 			m_iSpriteTextureState = TextureState::FALLING;
 		}
@@ -107,9 +111,14 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 	else if (m_iCorrectionX == 0 && m_iCorrectionY == 0 
 		&& m_iSpriteTextureState != TextureState::IDLE
 		&& m_iSpriteTextureState != TextureState::ATTACKING
-		&& m_iSpriteTextureState != TextureState::DEFENCE) { //Resets to idle animation after it lands from a jump
-		std::cout << "FELL IDLE" << std::endl;
+		&& m_iSpriteTextureState != TextureState::DEFENCE
+		&& m_iSpriteTextureState != TextureState::DEAD) { //Resets to idle animation after it lands from a jump
+		//std::cout << "FELL IDLE" << std::endl;
 		m_iSpriteTextureState = TextureState::IDLE;
+	}
+	else if (m_iHealth == 0) {
+		//std::cout << "DIED" << std::endl;
+		m_iSpriteTextureState = TextureState::DEAD;
 	}
 
 	//Texture Animation
@@ -121,11 +130,17 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 void GenericCharacter::changeTexture(int iTextureOffSetY,int iTextureResetX ,std::string sTextureName, bool bRepeat) {
 	//If a move needs to be executed once(like an attack), it will change to IDLE state.
 	if (!bRepeat && m_mSpritePhases[sTextureName] == m_iSpriteFrameCount) {
-		m_iSpriteTextureState = TextureState::IDLE;
+		if (m_iSpriteTextureState != TextureState::DEAD) {
+			m_iSpriteTextureState = TextureState::IDLE;
+		}
+		else {
+			m_bDelete = true;
+		}
 		return;
 	}
 	
 	int delta = getEngine()->getRawTime() - m_iLastSpriteChangeTime;
+	int attackDelta = getEngine()->getModifiedTime() - m_iLastAttack;
 	if (delta < m_iTextureUpdateDelta) {
 
 	}
@@ -135,8 +150,12 @@ void GenericCharacter::changeTexture(int iTextureOffSetY,int iTextureResetX ,std
 		m_iTextureOffSetY = iTextureOffSetY;
 		m_iSpriteFrameCount = 0;
 		m_iLastSpriteChangeTime = getEngine()->getRawTime();
+		if (m_iSpriteTextureState == TextureState::ATTACKING && attackDelta > 500) {
+			m_bCanAttack = true;
+			m_iLastAttack = getEngine()->getModifiedTime();
+		}
 	}
-	else {
+	else if(attackDelta > 500 || m_iSpriteTextureState != TextureState::ATTACKING){
 		m_iSpriteFrameCount++;
 		m_iLastSpriteChangeTime = getEngine()->getRawTime();
 	}

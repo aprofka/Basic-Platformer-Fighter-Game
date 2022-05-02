@@ -21,46 +21,49 @@ public:
 		//std::cout << x2r << std::endl;
 		//std::cout << x1l << std::endl;
 
-		m_bCollision = false;
-		if (x1r > x2l && x1l < x2l) {
-			
-			//std::cout << "Collision1" << std::endl;
-			m_iLeftX = x2l;
-			m_iRightX = x1r;
-			yCheck(y1t, y1b, y2t, y2b);
-			m_bCollision = true;
-		}
-		else if (x2r > x1l && x2l < x1l) {
-			//std::cout << "Collision2" << std::endl;
-			m_iLeftX = x1l;
-			m_iRightX = x2r;
-			yCheck(y1t,y1b,y2t,y2b);
-			m_bCollision = true;
-		}
-
-		if (m_bCollision)
-			//std::cout << m_iLeftX << std::endl;
-			//std::cout << m_iRightX << std::endl;
-			//std::cout << "===================" << std::endl;
-			for (int iPixelX = m_iLeftX; iPixelX != m_iRightX; iPixelX++) {
+		if(0){
+			m_bCollision = false;
+			if (x1r > x2l && x1l < x2l) {
+				//std::cout << "Collision1" << std::endl;
+				m_iLeftX = x2l;
+				m_iRightX = x1r;
+				yCheck(y1t, y1b, y2t, y2b);
+				m_bCollision = true;
+			}
+			else if (x2r > x1l && x2l < x1l) {
 				//std::cout << "Collision2" << std::endl;
-				for (int iPixelY = m_iTopY; iPixelY != m_iBottomY; iPixelY++) {
-					//std::cout << "Collision1" << std::endl;
-					std::stringstream stream;
-					stream << std::hex << pEngine->rawGetForegroundPixel(iPixelX, iPixelY);
-					std::string result(stream.str());
-					//std::cout << result << std::endl;
-					if (result.at(2) == 'f' && result.at(3) == 'f') {
-						std::cout << "Collision3" << std::endl;
-						//std::cout << pEngine->rawGetForegroundPixel(0, 0) << std::endl;
-						//std::cout << pEngine -> rawGetForegroundPixel(iPixelX, iPixelY) << std::endl;
-						//std::cout << surface->getPixel(iPixelX, iPixelY) << std::endl;
-						return true;
+				m_iLeftX = x1l;
+				m_iRightX = x2r;
+				yCheck(y1t,y1b,y2t,y2b);
+				m_bCollision = true;
+			}
+
+			if (m_bCollision)
+				//std::cout << m_iLeftX << std::endl;
+				//std::cout << m_iRightX << std::endl;
+				//std::cout << "===================" << std::endl;
+				for (int iPixelX = m_iLeftX; iPixelX != m_iRightX; iPixelX++) {
+					//std::cout << "Collision2" << std::endl;
+					for (int iPixelY = m_iTopY; iPixelY != m_iBottomY; iPixelY++) {
+						std::cout << "Collision1" << std::endl;
+						std::stringstream stream;
+						stream << std::hex << pEngine->rawGetForegroundPixel(iPixelX, iPixelY);
+						std::string result(stream.str());
+						//std::cout << result << std::endl;
+						if (result.at(6) != 'f' && result.at(7) != 'f') {
+							std::cout << "Collision3" << std::endl;
+							//std::cout << pEngine->rawGetForegroundPixel(0, 0) << std::endl;
+							//std::cout << pEngine -> rawGetForegroundPixel(iPixelX, iPixelY) << std::endl;
+							//std::cout << surface->getPixel(iPixelX, iPixelY) << std::endl;
+							return true;
+						}
 					}
 				}
-			}
-		return false;
-		//return !((x1r < x2l) || (x2r < x1l) || (y1b < y2t) || (y2b < y1t));
+			return false;
+		}
+		else {
+			return !((x1r < x2l) || (x2r < x1l) || (y1b < y2t) || (y2b < y1t));
+		}
 	}
 
 	void yCheck(int y1t, int y1b, int y2t, int y2b) {

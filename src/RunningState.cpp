@@ -12,6 +12,13 @@ RunningState::RunningState(void) : BaseState() {
 
 RunningState::~RunningState()
 {
+
+	delete m_arrBackgroundSurfaces[0];
+	delete m_arrBackgroundSurfaces[1];
+	delete m_arrBackgroundSurfaces[2];
+	delete m_arrBackgroundSurfaces[3];
+	delete m_arrBackgroundSurfaces[4];
+	std::vector<DrawingSurface*>().swap(m_arrBackgroundSurfaces);
 	//delete m_oMainCharObject;
 	//delete m_oEnemyObject;
 }
@@ -68,7 +75,6 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 }
 
 void RunningState::backgroundSetup(SimpleImage image) {
-
 	//Load Image
 	DrawingSurface* pSurface = new DrawingSurface(m_currentEngine);
 	m_arrBackgroundSurfaces.push_back(pSurface);
@@ -103,5 +109,23 @@ void RunningState::getNewMovableObject(void){
 	m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
 }
 
+void RunningState::stateVirtPostDraw() {
+	for (int i = 0; i != 2; i++) {
+		GenericCharacter* pObject;
+		pObject = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(i));
+		//std::cout << i << std::endl;
+		//std::cout << pObject->m_bDelete << std::endl;
+		if (pObject != nullptr && pObject->m_bDelete) {
+			m_currentEngine->drawableObjectsChanged();
+			m_currentEngine->removeDisplayableObject(pObject);
+			m_currentEngine->storeObjectInArray(1, nullptr);
+			delete pObject;
 
+			m_oEnemyObject = new EnemyCharacter(m_currentEngine);
+			m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
+			//std::cout << "DELETED" << std::endl;
+		}
+	}
+}
 
+			
