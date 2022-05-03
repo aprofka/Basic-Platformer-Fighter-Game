@@ -105,18 +105,23 @@ void GenericCharacter::changeTexture(int iTextureOffSetY,int iTextureResetX ,std
 	
 	int delta = getEngine()->getRawTime() - m_iLastSpriteChangeTime;
 	int attackDelta = getEngine()->getModifiedTime() - m_iLastAttack;
+
+	int offSett = 0;
+	if (m_bFlipped && m_iSpriteTextureState == TextureState::DEFENCE) {
+		offSett = 2;
+	}
+
 	if (delta < m_iTextureUpdateDelta) {
 
 	}
 	else if (m_mSpritePhases[sTextureName] == m_iSpriteFrameCount || m_sLastMovement != sTextureName) {
 		m_sLastMovement = sTextureName;
-		m_iTextureOffSetX = iTextureResetX;
+		m_iTextureOffSetX = iTextureResetX + offSett;
 		m_iTextureOffSetY = iTextureOffSetY;
 		m_iSpriteFrameCount = 0;
 		m_iLastSpriteChangeTime = getEngine()->getRawTime();
 		if (m_iSpriteTextureState == TextureState::ATTACKING && attackDelta > 1000) {
-			m_bCanAttack = true;
-			
+			m_bCanAttack = true;	
 		}
 	}
 	else if(attackDelta > 1000 || m_iSpriteTextureState != TextureState::ATTACKING){

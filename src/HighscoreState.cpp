@@ -59,5 +59,7 @@ void HighscoreState::stateVirtPostDraw()
 
 //Menu selection button
 void HighscoreState::keyControl(int iKeyPressed) {
-	//
+	if (iKeyPressed == SDLK_ESCAPE) {
+		m_currentEngine->changeState(new MainMenuState(m_currentEngine));
+	}
 }

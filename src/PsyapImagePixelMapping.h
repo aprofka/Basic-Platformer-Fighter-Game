@@ -41,7 +41,6 @@ public:
 		}
 		y += m_dYFrameSize * m_dYPos;
 
-		// Ensure it is within the size of the image
 		while (x > image.getWidth())
 			x -= image.getWidth();
 		while (x < 0.00)

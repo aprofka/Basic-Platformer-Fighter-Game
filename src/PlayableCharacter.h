@@ -6,7 +6,7 @@ class PlayableCharacter :
     public GenericCharacter
 {
 public:
-    PlayableCharacter(PsyapEngine* pEngine, int startPos, int health, int score) : GenericCharacter(pEngine, "resources/MainCharacter/png/red/ResizedOne.png", 700, startPos, health) {
+    PlayableCharacter(PsyapEngine* pEngine, int startPos, int health, int score) : GenericCharacter(pEngine, "resources/MainCharacter/png/red/ResizedOne2.png", 700, startPos, health) {
         m_iDrawWidth = 56*3;
         m_iDrawHeight = 56*3;
         m_iMovementSpeed = 15;

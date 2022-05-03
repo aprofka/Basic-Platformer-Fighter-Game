@@ -2,6 +2,7 @@
 #include "ArtState.h"
 #include "PsyapEngine.h"
 #include "RunningState.h"
+#include "MainMenuState.h"
 
 
 ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterMain() {
@@ -66,6 +67,10 @@ void ArtState::keyControl(int iKeyPressed) {
 	case SDLK_DOWN:
 		m_filterMain.changeOffset(0, -m_iScrollingSpeed);
 		m_currentEngine->redrawDisplay();
+		break;
+	case SDLK_ESCAPE:
+		m_currentEngine->getForegroundSurface()->setDrawPointsFilter(nullptr);
+		m_currentEngine->changeState(new MainMenuState(m_currentEngine));
 		break;
 	}
 }

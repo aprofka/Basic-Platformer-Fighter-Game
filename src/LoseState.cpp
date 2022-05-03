@@ -75,19 +75,19 @@ void LoseState::stateVirtPostDraw()
 		int iCenterW = (m_currentEngine->getWindowWidth() / 2);
 		int iCenterH = (m_currentEngine->getWindowHeight() / 2);
 		m_currentEngine->drawForegroundRectangle(iCenterW - 350, iCenterH - 250, iCenterW + 350, iCenterH + 250, 0xffffff);
-		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 30, "Enter your nickname here :", 0x000000, m_currentEngine->getFont("Cornerstone Regular.ttf", 25));
+		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 30, "Enter your nickname here :", 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 25));
 		m_currentEngine->drawForegroundRectangle(iCenterW - 300, iCenterH, iCenterW + 250, iCenterH + 50, 0x555555);
 
 		if (!m_sUsername.empty()) {
 			const char* temp = m_sUsername.c_str();
-			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("Cornerstone Regular.ttf", 25));
+			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 25));
 		}
 		//m_currentEngine->unlockForegroundForDrawing();
 	}
 	else {
 		if (!m_sUsername.empty()) {
 			const char* temp = m_sUsername.c_str();
-			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("Cornerstone Regular.ttf", 30));
+			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 30));
 		}
 	}
 }
