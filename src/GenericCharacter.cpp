@@ -37,8 +37,6 @@ void GenericCharacter::virtDraw()
 	int iBarStartY = m_iCurrentScreenY - m_iDrawHeight + 25 + m_iHealthBarOffSetY;
 	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + 100, iBarStartY + 10, 0xff0000);
 	getEngine()->drawForegroundRectangle(iBarStartX, iBarStartY, iBarStartX + m_iHealth, iBarStartY + 10, 0x00ff00);
-	//m_oSkinTile.renderImageWithMask(getEngine()->getForegroundSurface(), m_iTextureOffSetX, m_iTextureOffSetY,
-	//	m_iCurrentScreenX, m_iCurrentScreenY - m_iDrawHeight, m_iDrawWidth, m_iDrawHeight);
 }
 
 void GenericCharacter::virtDoUpdate(int iCurrentTime)
@@ -49,7 +47,6 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 
 	//This will run the next animation only if the current one is done and if any are pending
 	//If the pending ones would go bellow the ground level, they will be adjusted.
-	
 	if ((m_iCorrectionY != 0 || m_iCorrectionX != 0) && m_oMovement.hasMovementFinished(getEngine()->getModifiedTime())) {
 		if (m_iCurrentScreenY + m_iCorrectionY > m_iGroundLevel) {
 			m_iCorrectionY = m_iGroundLevel - m_iCurrentScreenY;
@@ -59,11 +56,9 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 			m_iSpriteTextureState = TextureState::JUMPING;
 		}
 		else if (m_iCorrectionY == 0 && m_iCorrectionX != 0 && m_iSpriteTextureState != TextureState::RUNNING) {
-			//std::cout << "FELL RUNNING" << std::endl;
 			m_iSpriteTextureState = TextureState::RUNNING;
 		}
 		else if (m_iCurrentScreenY < m_iGroundLevel - 200 && m_iSpriteTextureState != TextureState::FALLING) { // Jump height limit
-			//std::cout << "Height Limit" << std::endl;
 			m_iCorrectionY = 5;
 			m_iSpriteTextureState = TextureState::FALLING;
 		}
@@ -76,11 +71,9 @@ void GenericCharacter::virtDoUpdate(int iCurrentTime)
 		&& m_iSpriteTextureState != TextureState::ATTACKING
 		&& m_iSpriteTextureState != TextureState::DEFENCE
 		&& m_iSpriteTextureState != TextureState::DEAD) { //Resets to idle animation after it lands from a jump
-		//std::cout << "FELL IDLE" << std::endl;
 		m_iSpriteTextureState = TextureState::IDLE;
 	}
 	else if (m_iHealth == 0) {
-		//std::cout << "DIED" << std::endl;
 		m_iSpriteTextureState = TextureState::DEAD;
 	}
 	collisionDetection();
@@ -157,7 +150,9 @@ void GenericCharacter::collisionDetection() {
 				if (pObject->m_iSpriteTextureState != TextureState::DEFENCE) {
 					pObject->m_iHealth -= m_iAttackDMG;
 					if (pObject->m_iHealth <= 0) {
-						m_iCurrentPoints += 100;
+						KillPoints b(1);
+						m_kpKills = m_kpKills + b;
+						m_iCurrentPoints = m_kpKills.getNum();
 						pObject->m_iHealth = 0;
 					}
 					m_bCanAttack = false;

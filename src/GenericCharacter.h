@@ -6,6 +6,7 @@
 #include "PsyapMovementPosition.h"
 #include "PsyapImagePixelMapping.h"
 #include "PsyapCollisionDetection.h"
+#include "KillPoints.h"
 
 enum class TextureState {
 	INVALID = 0,
@@ -72,6 +73,7 @@ public:
 	bool m_bDelete = false; 
 	int m_iCurrentPoints = 0;
 	PsyapEngine* m_pCurrentEngine;
+	KillPoints m_kpKills = KillPoints(0);
 
 	int getPixelColour(int x, int y) { return m_oSkinTile.getPixelColour(x, y); }
 
@@ -79,4 +81,3 @@ public:
 private:
 	SimpleImage m_oSkinTile;
 };
-

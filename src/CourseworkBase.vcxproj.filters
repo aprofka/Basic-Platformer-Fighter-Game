@@ -204,6 +204,9 @@
     <ClInclude Include="HighscoreState.h">
       <Filter>Header Files\Coursework\States</Filter>
     </ClInclude>
+    <ClInclude Include="KillPoints.h">
+      <Filter>Header Files\Coursework\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="HighscoreState.cpp">
       <Filter>Source Files\Coursework\States</Filter>
+    </ClCompile>
+    <ClCompile Include="KillPoints.cpp">
+      <Filter>Source Files\Coursework\Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
