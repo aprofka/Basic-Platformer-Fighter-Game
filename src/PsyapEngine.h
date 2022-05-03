@@ -22,10 +22,7 @@ public:
     void setBackgroundSurface(DrawingSurface* pSurface);
     BaseState* m_state;
 
-private:
-    
-
-    //GenericCharacter* tempObj;
-    PsyapDisplayableObject* m_rectObj1;
+    bool m_firstTime = true;
+    std::string m_sNickname;
 };
 

@@ -21,14 +21,14 @@ enum class TextureState {
 class GenericCharacter : public DisplayableObject
 {
 public:
-	GenericCharacter(PsyapEngine* pEngine, std::string sAddress, int iFloorLevel);
+	GenericCharacter(PsyapEngine* pEngine, std::string sAddress, int iFloorLevel, int startX, int health);
 	~GenericCharacter();
 
 	void virtDraw();
 	void virtDoUpdate(int iCurrentTime);
 
 	void changeTexture(int iTextureOffSetY, int iTextureResetX, std::string sTextureName, bool bRepeat);
-
+	void collisionDetection();
 	virtual void textureManager();
 
 	int m_iTextureOffSetX = 0;
@@ -70,8 +70,12 @@ public:
 	bool m_bCollision = false;
 	bool m_bCanAttack = true; 
 	bool m_bDelete = false; 
+	int m_iCurrentPoints = 0;
+	PsyapEngine* m_pCurrentEngine;
 
 	int getPixelColour(int x, int y) { return m_oSkinTile.getPixelColour(x, y); }
+
+	int getCurrentX() { return m_iCurrentScreenX; }
 private:
 	SimpleImage m_oSkinTile;
 };

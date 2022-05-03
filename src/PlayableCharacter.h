@@ -6,12 +6,12 @@ class PlayableCharacter :
     public GenericCharacter
 {
 public:
-    PlayableCharacter(PsyapEngine* pEngine) : GenericCharacter(pEngine, "resources/MainCharacter/png/red/ResizedOne.png", 700) {
+    PlayableCharacter(PsyapEngine* pEngine, int startPos, int health, int score) : GenericCharacter(pEngine, "resources/MainCharacter/png/red/ResizedOne.png", 700, startPos, health) {
         m_iDrawWidth = 56*3;
         m_iDrawHeight = 56*3;
         m_iMovementSpeed = 15;
         m_iTextureUpdateDelta = 100;
-        m_iAttackDMG = 10;
+        m_iAttackDMG = 50;
 
         m_mSpritePhases["Idle"] = 5;
         m_mSpritePhases["Running"] = 7;
@@ -19,7 +19,9 @@ public:
         m_mSpritePhases["Falling"] = 3;
         m_mSpritePhases["BasicAttack"] = 5;
         m_mSpritePhases["Defence"] = 1; 
+        m_mSpritePhases["Death"] = 7;
 
+        m_iCurrentPoints = score;
         m_iHealthBarOffSetY = 0;
         m_iHealthBarOffSetX = 20;
     }

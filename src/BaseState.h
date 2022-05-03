@@ -6,7 +6,7 @@ class PsyapEngine;
 class BaseState
 {
 protected:
-	PsyapEngine *m_currentEngine;
+	PsyapEngine* m_currentEngine;
 
 public:
 	BaseState();

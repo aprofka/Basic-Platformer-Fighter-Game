@@ -24,8 +24,6 @@ ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterMain() {
 
 	m_iOffset = 0;
 
-	//m_currentEngine->lockForegroundForDrawing(); //To prevent conflicts/errors of 2 objects being drawn to the foreground at the same time
-
 	m_currentEngine -> getForegroundSurface()->setDrawPointsFilter(&m_filterMain);
 
 	m_currentEngine->unlockForegroundForDrawing();
@@ -44,16 +42,8 @@ void ArtState::stateAllBackgroundBuffer()
 	m_currentEngine->getForegroundSurface()->copyRectangleFrom(m_currentEngine->getBackgroundSurface(), 0, m_currentEngine->getWindowHeight() - m_iOffset, m_currentEngine->getWindowWidth(), 
 		m_currentEngine->getWindowHeight(), 0, m_iOffset - m_currentEngine->getWindowHeight());
 
-	//m_currentEngine->drawForegroundString(10, 10, "Underneath the objects", 0xffffff);
 	rickRoll.renderImage(m_currentEngine->getForegroundSurface(), 0, 0,
 		0, 0, rickRoll.getWidth(), rickRoll.getHeight());
-
-}
-
-void ArtState::getNewMovableObject(void) {
-	//m_arrForegroundObjects.push_back(new DisplayableObject());
-
-	//m_currentEngine->appendObjectToArray(m_arrMenuOptions[3]);
 
 }
 

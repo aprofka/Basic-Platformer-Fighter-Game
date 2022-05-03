@@ -198,6 +198,12 @@
     <ClInclude Include="PsyapCollisionDetection.h">
       <Filter>Header Files\Coursework\Util</Filter>
     </ClInclude>
+    <ClInclude Include="LoseState.h">
+      <Filter>Header Files\Coursework\States</Filter>
+    </ClInclude>
+    <ClInclude Include="HighscoreState.h">
+      <Filter>Header Files\Coursework\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -283,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="EnemyCharacter.cpp">
       <Filter>Source Files\Coursework\PlayableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseState.cpp">
+      <Filter>Source Files\Coursework\States</Filter>
+    </ClCompile>
+    <ClCompile Include="HighscoreState.cpp">
+      <Filter>Source Files\Coursework\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

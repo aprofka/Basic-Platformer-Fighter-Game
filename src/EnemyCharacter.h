@@ -5,12 +5,12 @@ class EnemyCharacter :
     public GenericCharacter
 {
 public:
-    EnemyCharacter(PsyapEngine* pEngine) : GenericCharacter(pEngine, "resources/EnemyCharacter/slimeSheet.png", 700) {
+    EnemyCharacter(PsyapEngine* pEngine, int startPos, int health) : GenericCharacter(pEngine, "resources/EnemyCharacter/slimeSheet.png", 700, startPos, health) {
         m_iDrawWidth = 32 * 3;
         m_iDrawHeight = 25 * 3;
         m_iMovementSpeed = 15;
         m_iTextureUpdateDelta = 125;
-        m_iAttackDMG = 5;
+        m_iAttackDMG = 20;
 
         m_mSpritePhases["Idle"] = 3;
         m_mSpritePhases["Running"] = 3;

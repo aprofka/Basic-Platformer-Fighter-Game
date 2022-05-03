@@ -3,6 +3,7 @@
 #include "ArtState.h"
 #include "PsyapEngine.h"
 #include "RunningState.h"
+#include "HighscoreState.h"
 #include <fstream>
 #include <sstream>
 
@@ -13,6 +14,9 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 
 	//Load Image
 	SimpleImage backgroundLayer = ImageManager::loadImage("resources/MainMenuState/MainMenuBackground.jpg", true);
+
+	m_currentEngine->lockForegroundForDrawing();
+	m_currentEngine->lockBackgroundForDrawing();
 
 	//Draw imagine
 	backgroundLayer.renderImage(m_currentEngine->getBackgroundSurface(), 0, 0,
@@ -28,12 +32,15 @@ MainMenuState::MainMenuState(PsyapEngine* newEngine) : BaseState() {
 	saveFile.open("saves/userData.txt"); // opens the file
 	saveFile >> m_bFirstTimeLoad;
 	for (int i = 0; i <= 1; i++)
-		getline(saveFile, m_sUsername); //Get the username that is on line one
+		getline(saveFile, m_currentEngine->m_sNickname); //Get the username that is on line one
 	saveFile.close();
 
-	std::cout << m_sUsername << std::endl;
-	//m_currentEngine->lockForegroundForDrawing();
-	//m_currentEngine->unlockForegroundForDrawing();
+	if (!m_currentEngine->m_firstTime) {
+		getNewMovableObject();
+	}
+
+	m_currentEngine->unlockForegroundForDrawing();
+	m_currentEngine->unlockBackgroundForDrawing();
 }
 
 MainMenuState::~MainMenuState()
@@ -43,7 +50,7 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::getNewMovableObject(void) {
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -125, "Play"));
-	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -50, "Leaderboard"));
+	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, -50, "Highscore"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, 25, "Game Art"));
 	m_arrMenuOptions.push_back(new MenuOption(m_currentEngine, 100, "Exit"));
 
@@ -79,19 +86,19 @@ void MainMenuState::stateVirtPostDraw()
 		int iCenterW = (m_currentEngine->getWindowWidth() / 2);
 		int iCenterH = (m_currentEngine->getWindowHeight() / 2);
 		m_currentEngine->drawForegroundRectangle(iCenterW - 350, iCenterH - 250, iCenterW + 350, iCenterH + 250, 0xffffff);
-		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 30, "Enter your nickname here :", 0x000000, m_currentEngine->getFont("Cornerstone Regular.ttf", 25));
+		m_currentEngine->drawForegroundString(iCenterW - 300, iCenterH - 30, "Enter your nickname here :", 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 25));
 		m_currentEngine->drawForegroundRectangle(iCenterW - 300, iCenterH , iCenterW + 250, iCenterH + 50, 0x555555);
 
-		if (!m_sUsername.empty()) {
-			const char* temp = m_sUsername.c_str();
-			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("Cornerstone Regular.ttf", 25));
+		if (!m_currentEngine->m_sNickname.empty()) {
+			const char* temp = m_currentEngine->m_sNickname.c_str();
+			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 25));
 		}
 		//m_currentEngine->unlockForegroundForDrawing();
 	}
 	else {
-		if (!m_sUsername.empty()) {
-			const char* temp = m_sUsername.c_str();
-			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("Cornerstone Regular.ttf", 30));
+		if (!m_currentEngine->m_sNickname.empty()) {
+			const char* temp = m_currentEngine->m_sNickname.c_str();
+			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 30));
 		}
 	}
 }
@@ -104,17 +111,17 @@ void MainMenuState::keyControl(int iKeyPressed) {
 			if (SDL_GetModState() != KMOD_CAPS)
 				std::transform(temp.begin(), temp.end(), temp.begin(),
 					[](unsigned char temp) { return std::tolower(temp); });
-			m_sUsername.append(temp);
+			m_currentEngine->m_sNickname.append(temp);
 			//std::cout << temp << std::endl;
 		}
-		else if (iKeyPressed == SDLK_BACKSPACE && m_sUsername.length() > 0) {
-			m_sUsername.pop_back();
+		else if (iKeyPressed == SDLK_BACKSPACE && m_currentEngine->m_sNickname.length() > 0) {
+			m_currentEngine->m_sNickname.pop_back();
 		}
-		else if (iKeyPressed == 13 && m_sUsername.length() > 0) {
+		else if (iKeyPressed == 13 && m_currentEngine->m_sNickname.length() > 0) {
 			std::ofstream file;
 			file.open("saves/userData.txt");
 			file << false << std::endl;
-			file << m_sUsername << std::endl;
+			file << m_currentEngine->m_sNickname << std::endl;
 			file.close();
 
 			m_bFirstTimeLoad = false;
@@ -142,6 +149,10 @@ void MainMenuState::keyControl(int iKeyPressed) {
 					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Game Art") == 0) {
 						m_currentEngine->destroyOldObjects(true);
 						m_currentEngine->changeState(new ArtState(m_currentEngine));
+					}
+					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Highscore") == 0) {
+						m_currentEngine->destroyOldObjects(true);
+						m_currentEngine->changeState(new HighscoreState(m_currentEngine));
 					}
 					else if (strcmp(m_arrMenuOptions[i]->m_sText, "Exit") == 0) {
 						m_currentEngine->setExitWithCode(0);

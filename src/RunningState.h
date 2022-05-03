@@ -12,7 +12,6 @@ class RunningState :
     public BaseState
 {
 public:
-    RunningState();
     ~RunningState();
     RunningState(PsyapEngine* newEngine);
     void backgroundSetup(SimpleImage image);
@@ -22,6 +21,7 @@ public:
     GenericCharacter* m_oMainCharObject;
     EnemyCharacter* m_oEnemyObject;
     std::vector<DrawingSurface*> m_arrBackgroundSurfaces;
+    DrawingSurface* m_pOriginalBackgroundSurface;
     int m_iLastUpdateBackground = 0;
     int m_iLastBackground = 0;
 };

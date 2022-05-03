@@ -3,24 +3,18 @@
 
 #include "header.h"
 #include "RunningState.h"
-
+#include "LoseState.h"
 #endif
-
-RunningState::RunningState(void) : BaseState() {
-	std::cout << "State Running - Created\n";
-}
+#include <fstream>
 
 RunningState::~RunningState()
 {
-
 	delete m_arrBackgroundSurfaces[0];
 	delete m_arrBackgroundSurfaces[1];
 	delete m_arrBackgroundSurfaces[2];
 	delete m_arrBackgroundSurfaces[3];
 	delete m_arrBackgroundSurfaces[4];
 	std::vector<DrawingSurface*>().swap(m_arrBackgroundSurfaces);
-	//delete m_oMainCharObject;
-	//delete m_oEnemyObject;
 }
 
 RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
@@ -42,7 +36,7 @@ RunningState::RunningState(PsyapEngine* newEngine) : BaseState() {
 	backgroundSetup(backgroundLayer2);
 	backgroundSetup(backgroundLayer3);
 	backgroundSetup(backgroundLayer4);
-	
+	m_pOriginalBackgroundSurface = m_currentEngine->getBackgroundSurface();
 	m_currentEngine->setBackgroundSurface(m_arrBackgroundSurfaces[0]);
 
 	PlatformTileManager m_TileManager;
@@ -102,30 +96,86 @@ void RunningState::stateAllBackgroundBuffer()
 
 
 void RunningState::getNewMovableObject(void){
-	m_oMainCharObject = new PlayableCharacter(m_currentEngine);
-	m_oEnemyObject = new EnemyCharacter(m_currentEngine);
+	std::ifstream outFile;
+	outFile.open("saves/playState.txt");
+
+	int playerStartX;
+	int playersHealth;
+	int playerScore;
+	int enemyStartX;
+	int enemyHealth;
+	outFile >> playerStartX >> playersHealth >> playerScore >> enemyStartX >> enemyHealth;
+	outFile.close();
+
+	m_oMainCharObject = new PlayableCharacter(m_currentEngine, playerStartX, playersHealth ,playerScore);
+	m_oEnemyObject = new EnemyCharacter(m_currentEngine, enemyStartX, enemyHealth);
 
 	m_currentEngine->storeObjectInArray(0, m_oMainCharObject);
 	m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
 }
 
-void RunningState::stateVirtPostDraw() {
-	for (int i = 0; i != 2; i++) {
-		GenericCharacter* pObject;
-		pObject = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(i));
-		//std::cout << i << std::endl;
-		//std::cout << pObject->m_bDelete << std::endl;
-		if (pObject != nullptr && pObject->m_bDelete) {
-			m_currentEngine->drawableObjectsChanged();
-			m_currentEngine->removeDisplayableObject(pObject);
-			m_currentEngine->storeObjectInArray(1, nullptr);
-			delete pObject;
+void RunningState::stateVirtPostDraw() 
+{
+	GenericCharacter* pObject;
+	pObject = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(0));
+	if (pObject->m_bDelete) {
+		std::ofstream inFile;
+		inFile.open("saves/playState.txt");
+		inFile << 250 << std::endl
+			<< 100 << std::endl
+			<< 0 << std::endl
+			<< 1200 << std::endl
+			<< 100 << std::endl;
+		inFile.close();
 
-			m_oEnemyObject = new EnemyCharacter(m_currentEngine);
-			m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
-			//std::cout << "DELETED" << std::endl;
+		std::ifstream outFile;
+		outFile.open("saves/highscore.txt");
+		int scoreT;
+		std::string nickname;
+		outFile >> scoreT >> nickname;
+		outFile.close();
+		if (scoreT < pObject->m_iCurrentPoints) {
+			inFile.open("saves/highscore.txt");
+			inFile << pObject->m_iCurrentPoints << std::endl
+				<< m_currentEngine -> m_sNickname << std::endl;
+			inFile.close();
 		}
-	}
-}
 
-			
+		m_currentEngine->setBackgroundSurface(m_pOriginalBackgroundSurface);
+		m_currentEngine->changeState(new LoseState(m_currentEngine));
+		return;
+	}
+
+	pObject = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(1));
+	if (pObject != nullptr && pObject->m_bDelete) {
+		//m_currentEngine->changeState(new LoseState(m_currentEngine));
+		m_currentEngine->drawableObjectsChanged();
+		m_currentEngine->removeDisplayableObject(pObject);
+		m_currentEngine->storeObjectInArray(1, nullptr);
+		delete pObject;
+
+		m_oEnemyObject = new EnemyCharacter(m_currentEngine, 1100, 100);
+		m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
+	}
+
+
+	pObject = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(0));
+	GenericCharacter* pObject2 = dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(1));
+	std::ofstream inFile;
+	inFile.open("saves/playState.txt");
+	inFile << pObject->getCurrentX() << std::endl
+		<< pObject->m_iHealth << std::endl
+		<< pObject->m_iCurrentPoints << std::endl
+		<< pObject2->getCurrentX() << std::endl
+		<< pObject2->m_iHealth << std::endl;
+	inFile.close();
+	
+	//Convert current score to const star char for printing
+	int highScore = (dynamic_cast<GenericCharacter*>(m_currentEngine->getDisplayableObject(0)))->m_iCurrentPoints;
+	std::stringstream temp_str;
+	temp_str << (highScore);
+	std::string str = "Score: " + temp_str.str() + "               Player Name: " + m_currentEngine->m_sNickname;
+	const char* cstrScore = str.c_str();
+
+	m_currentEngine->drawForegroundString(20, 20, cstrScore, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 30));
+}			

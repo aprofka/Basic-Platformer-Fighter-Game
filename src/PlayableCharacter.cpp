@@ -1,7 +1,6 @@
 #include "header.h"
 #include "PlayableCharacter.h"
 
-
 void PlayableCharacter::textureManager() {
 	int delta = getEngine()->getRawTime() - m_iLastSpriteChangeTime;
 	if (delta > 75) {
@@ -26,51 +25,61 @@ void PlayableCharacter::textureManager() {
 		case TextureState::DEFENCE:
 			changeTexture(10, 1, "Defence", true);
 			break;
+		case TextureState::DEAD:
+			changeTexture(6, 0, "Death", false);
+			break;
 		}
 	}
 }
 
 void PlayableCharacter::virtKeyDown(int iKeyPressed) {
-	if (iKeyPressed == SDLK_f) {
-		//std::cout << "Pre-Up " << std::endl;
-		if (m_iCurrentScreenY == m_iGroundLevel) {
-			//std::cout << "Basic Attack" << std::endl;
-			m_iSpriteTextureState = TextureState::ATTACKING;
+	if (m_iSpriteTextureState != TextureState::DEAD) {
+		if (iKeyPressed == SDLK_f) {
+			//std::cout << "Pre-Up " << std::endl;
+			if (m_iCurrentScreenY == m_iGroundLevel) {
+				//std::cout << "Basic Attack" << std::endl;
+				m_iSpriteTextureState = TextureState::ATTACKING;
+			}
 		}
-	}
-	else if (iKeyPressed == SDLK_UP) {
-		//std::cout << "Pre-Up " << std::endl;
-		if (m_iCurrentScreenY == m_iGroundLevel) {
-			//std::cout << "Straight Up " << std::endl;
-			m_iCorrectionY = -10;
-		} 
-	}
-	else if (iKeyPressed == SDLK_RIGHT) {
+		else if (iKeyPressed == SDLK_UP) {
+			//std::cout << "Pre-Up " << std::endl;
+			if (m_iCurrentScreenY == m_iGroundLevel) {
+				//std::cout << "Straight Up " << std::endl;
+				m_iCorrectionY = -10;
+			}
+		}
+		else if (iKeyPressed == SDLK_RIGHT) {
 			//std::cout << "Right" << std::endl;
 			m_iCorrectionX = 10;
 			m_bFlipped = false;
-	}
-	else if (iKeyPressed == SDLK_LEFT) {
-		//std::cout << "Left " << std::endl;
-		m_iCorrectionX = -10;
-		m_bFlipped = true;
-	}
-	else if (iKeyPressed == SDLK_d) {
-		if (m_iCurrentScreenY == m_iGroundLevel) {
-			//std::cout << "Defence " << std::endl;
-			m_iCorrectionX = 0;
-			m_iSpriteTextureState = TextureState::DEFENCE;
 		}
+		else if (iKeyPressed == SDLK_LEFT) {
+			//std::cout << "Left " << std::endl;
+			m_iCorrectionX = -10;
+			m_bFlipped = true;
+		}
+		else if (iKeyPressed == SDLK_d) {
+			if (m_iCurrentScreenY == m_iGroundLevel) {
+				//std::cout << "Defence " << std::endl;
+				m_iCorrectionX = 0;
+				m_iSpriteTextureState = TextureState::DEFENCE;
+			}
+		}
+	}
+	else {
+		m_iCorrectionX = 0;
 	}
 }
 
 
 void PlayableCharacter::virtKeyUp(int iKeyPressed) {
-	int iDelta = getEngine()->getRawTime() - m_iLastKeyReleaseTime;
-	if (iKeyPressed == SDLK_RIGHT || iKeyPressed == SDLK_LEFT) {
-		//std::cout << "X Reset " << std::endl;
-		m_iCorrectionX = 0;
+	if (m_iSpriteTextureState != TextureState::DEAD) {
+		int iDelta = getEngine()->getRawTime() - m_iLastKeyReleaseTime;
+		if (iKeyPressed == SDLK_RIGHT || iKeyPressed == SDLK_LEFT) {
+			//std::cout << "X Reset " << std::endl;
+			m_iCorrectionX = 0;
+		}
+		m_iLastKeyReleaseTime = getEngine()->getRawTime();
 	}
-	m_iLastKeyReleaseTime = getEngine()->getRawTime();
 }
 
