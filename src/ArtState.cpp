@@ -3,6 +3,7 @@
 #include "PsyapEngine.h"
 #include "RunningState.h"
 #include "MainMenuState.h"
+#include "PsyapDisplayableObject.h"
 
 
 ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterMain() {
@@ -26,6 +27,9 @@ ArtState::ArtState(PsyapEngine* newEngine) : BaseState(), m_filterMain() {
 	m_iOffset = 0;
 
 	m_currentEngine -> getForegroundSurface()->setDrawPointsFilter(&m_filterMain);
+
+	
+	m_currentEngine -> storeObjectInArray(0, new PsyapDisplayableObject(m_currentEngine));
 
 	m_currentEngine->unlockForegroundForDrawing();
 	m_currentEngine->unlockBackgroundForDrawing();
@@ -84,4 +88,8 @@ void ArtState::mouseWheel(int x, int y, int which, int timestamp)
 		m_filterMain.stretch();
 
 	m_currentEngine->redrawDisplay();
+}
+
+void ArtState::mouseMoved(int iX, int iY) {
+	dynamic_cast<PsyapDisplayableObject*>(m_currentEngine -> getDisplayableObject(0))->setPosition(iX, iY);
 }

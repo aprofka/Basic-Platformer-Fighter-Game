@@ -49,13 +49,10 @@ public:
 	int m_iCorrectionY = 0; 
 
 	bool m_bFlipped = false;
-
-	/** Movement position calculator - give it start and end position and times
-	and it works out current position for the current time. */
 	PsyapMovementPosition m_oMovement;
 
 	// Last time the sprite texture was changed
-	int m_iLastSpriteChangeTime; // *For Potencial Removal
+	int m_iLastSpriteChangeTime;
 
 	int m_iLastKeyReleaseTime = 0;
 

@@ -11,7 +11,7 @@ public:
         m_iDrawHeight = 56*3;
         m_iMovementSpeed = 15;
         m_iTextureUpdateDelta = 100;
-        m_iAttackDMG = 50;
+        m_iAttackDMG = 20;
 
         m_mSpritePhases["Idle"] = 5;
         m_mSpritePhases["Running"] = 7;

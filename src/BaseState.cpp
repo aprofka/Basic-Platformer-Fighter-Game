@@ -44,4 +44,5 @@ void BaseState::stateVirtPostDraw()
 {
 }
 
-
+void BaseState::mouseMoved(int iX, int iY) {
+}

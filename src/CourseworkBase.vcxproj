@@ -108,6 +108,7 @@
     <ClInclude Include="PlatformTileManager.h" />
     <ClInclude Include="PlayableCharacter.h" />
     <ClInclude Include="PsyapCollisionDetection.h" />
+    <ClInclude Include="PsyapDisplayableObject.h" />
     <ClInclude Include="PsyapEngine.h" />
     <ClInclude Include="PsyapFilterPointClasses.h" />
     <ClInclude Include="PsyapImagePixelMapping.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="PlatformTileManager.cpp" />
     <ClCompile Include="PlayableCharacter.cpp" />
+    <ClCompile Include="PsyapDisplayableObject.cpp" />
     <ClCompile Include="PsyapEngine.cpp" />
     <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="SimpleImage.cpp" />

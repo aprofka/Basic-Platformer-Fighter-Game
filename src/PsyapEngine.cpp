@@ -68,3 +68,6 @@ void PsyapEngine::setBackgroundSurface(DrawingSurface* pSurface) {
 	m_pBackgroundSurface = pSurface;
 }
 
+void PsyapEngine::virtMouseMoved(int iX, int iY) {
+	m_state->mouseMoved(iX, iY);
+}

@@ -91,14 +91,14 @@ void MainMenuState::stateVirtPostDraw()
 
 		if (!m_currentEngine->m_sNickname.empty()) {
 			const char* temp = m_currentEngine->m_sNickname.c_str();
-			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 25));
+			m_currentEngine->drawForegroundString(iCenterW - 290, iCenterH + 10, temp, 0xffffff, m_currentEngine->getFont("resources/Cornerstone Regular.ttf", 25));
 		}
 		//m_currentEngine->unlockForegroundForDrawing();
 	}
 	else {
 		if (!m_currentEngine->m_sNickname.empty()) {
 			const char* temp = m_currentEngine->m_sNickname.c_str();
-			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 30));
+			m_currentEngine->drawForegroundString(25, 25, temp, 0xffffff, m_currentEngine->getFont("resources/Cornerstone Regular.ttf", 30));
 		}
 	}
 }

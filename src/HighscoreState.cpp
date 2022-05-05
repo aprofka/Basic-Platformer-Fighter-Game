@@ -47,14 +47,14 @@ void HighscoreState::stateVirtPostDraw()
 
 	int iCenterW = (m_currentEngine->getWindowWidth() / 2);
 	int iCenterH = (m_currentEngine->getWindowHeight() / 2);
-	m_currentEngine->drawForegroundRectangle(iCenterW - 300, iCenterH - 300, iCenterW + 300, iCenterH + 300, 0xffffff);
-	m_currentEngine->drawForegroundString(iCenterW - 175, iCenterH - 200, nickname.c_str(), 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 100));
+	m_currentEngine->drawForegroundRectangle(iCenterW - 325, iCenterH - 300, iCenterW + 300, iCenterH + 300, 0xffffff);
+	m_currentEngine->drawForegroundString(iCenterW - 175, iCenterH - 100, nickname.c_str(), 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 100));
 
 	std::stringstream temp_str;
 	temp_str << (scoreT);
 	std::string str = temp_str.str();
 	const char* cstrScore = str.c_str();
-	m_currentEngine->drawForegroundString(iCenterW - 100, iCenterH - 100, cstrScore, 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 100));
+	m_currentEngine->drawForegroundString(iCenterW - 100, iCenterH, cstrScore, 0x000000, m_currentEngine->getFont("resources/BebasNeue-Regular.ttf", 100));
 }
 
 //Menu selection button

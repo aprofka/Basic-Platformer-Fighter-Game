@@ -16,7 +16,7 @@ public:
     void copyAllBackgroundBuffer() override;
     int virtInitialiseObjects();
     void virtPostDraw();
-   //void virtMouseMoved(int iX, int iY);
+    void virtMouseMoved(int iX, int iY) override;
     void virtKeyDown(int iKeyCode) override;
     void virtMouseWheel(int x, int y, int which, int timestamp) override;
     void setBackgroundSurface(DrawingSurface* pSurface);

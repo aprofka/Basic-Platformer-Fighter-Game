@@ -15,6 +15,7 @@ public:
     void stateAllBackgroundBuffer();
     void keyControl(int iKeyPressed);
     void mouseWheel(int x, int y, int which, int timestamp) override;
+    void mouseMoved(int iX, int iY) override;
     int m_iOffset;
     int m_iScrollingSpeed = 20;
     std::vector<DisplayableObject*> m_arrForegroundObjects;

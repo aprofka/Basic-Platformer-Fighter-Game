@@ -30,5 +30,12 @@ void PlatformTileManager::virtDrawTileAt(
 		backgroundLayer.renderImage(pSurface, 80, 110,
 			iStartPositionScreenX, iStartPositionScreenY, 100, 50);
 	}
-
+	else if (iMapValue == 4) {
+		backgroundLayer.renderImage(pSurface, 100, 110,
+			iStartPositionScreenX, iStartPositionScreenY, 100, 50);
+	}
+	else if (iMapValue == 5) {
+		backgroundLayer.renderImage(pSurface, 50, 60,
+			iStartPositionScreenX, iStartPositionScreenY, 100, 50);
+	}
 }

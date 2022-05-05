@@ -23,5 +23,6 @@ public:
 	virtual void keyControl(int iKeyPressed);
 	virtual void mouseWheel(int x, int y, int which, int timestamp);
 	virtual void stateVirtPostDraw();
+	virtual void mouseMoved(int iX, int iY);
 };
 

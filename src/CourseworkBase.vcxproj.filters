@@ -207,6 +207,9 @@
     <ClInclude Include="KillPoints.h">
       <Filter>Header Files\Coursework\Util</Filter>
     </ClInclude>
+    <ClInclude Include="PsyapDisplayableObject.h">
+      <Filter>Header Files\Coursework\PlayableObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseEngine.cpp">
@@ -301,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="KillPoints.cpp">
       <Filter>Source Files\Coursework\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="PsyapDisplayableObject.cpp">
+      <Filter>Source Files\Coursework\PlayableObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

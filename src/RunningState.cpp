@@ -124,7 +124,7 @@ void RunningState::stateVirtPostDraw()
 		inFile << 250 << std::endl
 			<< 100 << std::endl
 			<< 0 << std::endl
-			<< 1200 << std::endl
+			<< 1000 << std::endl
 			<< 100 << std::endl;
 		inFile.close();
 
@@ -154,7 +154,7 @@ void RunningState::stateVirtPostDraw()
 		m_currentEngine->storeObjectInArray(1, nullptr);
 		delete pObject;
 
-		m_oEnemyObject = new EnemyCharacter(m_currentEngine, 1100, 100);
+		m_oEnemyObject = new EnemyCharacter(m_currentEngine, 1000, 100);
 		m_currentEngine->storeObjectInArray(1, m_oEnemyObject);
 	}
 
