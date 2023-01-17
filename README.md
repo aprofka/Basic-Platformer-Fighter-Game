@@ -1,2 +1,2 @@
-# year2-cpp-cw2
-C++ Game Coursework from second year of university
+# Basic Platformer Fighter Game
+This was made as part of a university coursework and it was my first serious C++ project. 
